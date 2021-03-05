@@ -20,5 +20,11 @@ namespace API.Controllers
         {
             return await Mediator.Send(new Details.Query{Id = id});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateDefect(Defect defect)
+        {
+            return Ok(await Mediator.Send(new Create.Command {Defect = defect}));
+        }
     }
 }
