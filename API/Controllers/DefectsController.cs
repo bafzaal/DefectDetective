@@ -26,5 +26,12 @@ namespace API.Controllers
         {
             return Ok(await Mediator.Send(new Create.Command {Defect = defect}));
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditDefect(Guid id, Defect defect)
+        {
+            defect.Id = id;
+            return Ok(await Mediator.Send(new Edit.Command{Defect = defect}));
+        }
     }
 }
