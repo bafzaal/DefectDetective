@@ -24,7 +24,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDefect(Defect defect)
         {
-            return Ok(await Mediator.Send(new Create.Command {Defect = defect}));
+            return Ok(await Mediator.Send(new Create.Command{Defect = defect}));
         }
 
         [HttpPut("{id}")]
@@ -32,6 +32,12 @@ namespace API.Controllers
         {
             defect.Id = id;
             return Ok(await Mediator.Send(new Edit.Command{Defect = defect}));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDefect(Guid id)
+        {
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
     }
 }
