@@ -12,7 +12,7 @@ namespace Persistence
         {
             if (context.Defects.Any()) return;
             
-            var activities = new List<Defect>
+            var defects = new List<Defect>
             {
                 new Defect
                 {
@@ -106,7 +106,7 @@ namespace Persistence
                 }
             };
 
-            await context.Defects.AddRangeAsync(activities);
+            await context.Defects.AddRangeAsync(defects);
             await context.SaveChangesAsync();
         }
     }
