@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
 
@@ -8,19 +8,43 @@ interface IProps
     closeForm: () => void;
 }
 
-export default function DefectForm({defect, closeForm}: IProps)
+export default function DefectForm({defect: selectedDefect, closeForm}: IProps)
 {
+
+    const initialState = selectedDefect ?? {
+        id: '',
+        title: '',
+        category: '',
+        description: '',
+        date: '',
+        priority: '',
+        status: '',
+    }
+
+    const [defect, setDefect] = useState(initialState);
+
+    function handleSubmit()
+    {
+        console.log(defect);
+    }
+
+    function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
+    {
+        const {name, value} = event.target;
+        setDefect({...defect, [name]: value})
+    }
+
     return(
         <Segment clearing>
-            <Form>
-                <Form.Input placeholder='Title' />
-                <Form.TextArea placeholder='Description' />
-                <Form.Input placeholder='Category' />
-                <Form.Input placeholder='Date' />
-                <Form.Input placeholder='Priority' />
-                <Form.Input placeholder='Status' />
-                <Button floated='right' positive type='submit' content='Submit' />
-                <Button onClick={closeForm} floated='right' type='button' content='Cancel' />
+            <Form onSubmit={handleSubmit} autoComplete='off'>
+                <Form.Input placeholder='Title' value={defect.title} name='title' onChange={handleInputChange} />
+                <Form.TextArea placeholder='Description' value={defect.description} name='description' onChange={handleInputChange} />
+                <Form.Input placeholder='Category' value={defect.category} name='category' onChange={handleInputChange} />
+                <Form.Input placeholder='Date' value={defect.date} name='date' onChange={handleInputChange} />
+                <Form.Input placeholder='Priority' value={defect.priority} name='priority' onChange={handleInputChange} />
+                <Form.Input placeholder='Status' value={defect.status} name='status' onChange={handleInputChange} />
+                <Button floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
+                <Button onClick={closeForm} floated='right' type='button' content='Cancel' onChange={handleInputChange} />
             </Form>
         </Segment>
     )
