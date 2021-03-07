@@ -6,9 +6,10 @@ interface Props
 {
     defect: IDefect;
     cancelSelectDefect: () => void;
+    openForm: (id: string) => void;
 }
 
-export default function DefectDetails({defect, cancelSelectDefect}: Props)
+export default function DefectDetails({defect, cancelSelectDefect, openForm}: Props)
 {
     return(
         <Card fluid>
@@ -24,7 +25,7 @@ export default function DefectDetails({defect, cancelSelectDefect}: Props)
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths='2'>
-                    <Button basic color='blue' content='Edit' />
+                    <Button onClick={() => openForm(defect.id)} basic color='blue' content='Edit' />
                     <Button onClick={cancelSelectDefect} basic color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>

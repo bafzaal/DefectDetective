@@ -11,9 +11,13 @@ interface IProps
     selectedDefect: IDefect | undefined;
     selectDefect: (id: String) => void;
     cancelSelectDefect: () => void;
+    editMode: boolean;
+    openForm: (id: string) => void;
+    closeForm: () => void;
 }
 
-export default function DefectDashboard({defects, selectedDefect, selectDefect, cancelSelectDefect}: IProps)
+export default function DefectDashboard({defects, selectedDefect, selectDefect,
+     cancelSelectDefect, editMode, openForm, closeForm}: IProps)
 {
     return(
         <Grid>
@@ -21,9 +25,14 @@ export default function DefectDashboard({defects, selectedDefect, selectDefect, 
             <DefectList defects={defects} selectDefect={selectDefect} />             
             </Grid.Column>
             <Grid.Column width='6'>
-                {selectedDefect &&
-                <DefectDetails defect={selectedDefect} cancelSelectDefect={cancelSelectDefect} />}
-                <DefectForm />
+                {selectedDefect && !editMode &&
+                <DefectDetails 
+                    defect={selectedDefect} 
+                    cancelSelectDefect={cancelSelectDefect} 
+                    openForm={openForm}
+                />}
+                {editMode && 
+                <DefectForm closeForm={closeForm} defect={selectedDefect} />}
             </Grid.Column>
         </Grid>
     )
