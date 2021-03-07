@@ -5,9 +5,10 @@ import { IDefect } from '../../../app/models/defect';
 interface IProps
 {
     defects: IDefect[];
+    selectDefect: (id: String) => void;
 }
 
-export default function DefectList({defects}: IProps)
+export default function DefectList({defects, selectDefect}: IProps)
 {
     return(
         <Segment>
@@ -22,7 +23,7 @@ export default function DefectList({defects}: IProps)
                                 <div>{defect.priority}, {defect.status}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated='right' content='View' color='blue' />
+                                <Button onClick={() => selectDefect(defect.id)} floated='right' content='View' color='blue' />
                                 <Label basic content={defect.category} />
                             </Item.Extra>
                         </Item.Content>

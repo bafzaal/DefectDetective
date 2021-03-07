@@ -4,10 +4,11 @@ import { IDefect } from '../../../app/models/defect';
 
 interface Props
 {
-    defect: IDefect
+    defect: IDefect;
+    cancelSelectDefect: () => void;
 }
 
-export default function DefectDetails({defect}: Props)
+export default function DefectDetails({defect, cancelSelectDefect}: Props)
 {
     return(
         <Card fluid>
@@ -24,7 +25,7 @@ export default function DefectDetails({defect}: Props)
             <Card.Content extra>
                 <Button.Group widths='2'>
                     <Button basic color='blue' content='Edit' />
-                    <Button basic color='grey' content='Cancel' />
+                    <Button onClick={cancelSelectDefect} basic color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>
         </Card>
