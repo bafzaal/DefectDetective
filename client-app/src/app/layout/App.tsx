@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Header, List } from 'semantic-ui-react';
 import { IDefect } from '../models/defect';
 import NavBar from './NavBar';
+import DefectDashboard from '../../features/defects/dashboard/ActivityDashboard';
 
 function App() {
   const [defects, setDefects] = useState<IDefect[]>([])
@@ -17,13 +18,7 @@ function App() {
     <Fragment>
       <NavBar />
       <Container style={{marginTop: '7em'}}>
-        <List>
-          {defects.map(defect => (
-                <List.Item key={defect.id}>
-                  {defect.title}
-                </List.Item>
-              ))}
-        </List>
+        <DefectDashboard defects={defects} />
       </Container>
     </Fragment>
   );
