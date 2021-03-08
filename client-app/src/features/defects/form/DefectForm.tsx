@@ -6,9 +6,10 @@ interface IProps
 {
     defect: IDefect | undefined;
     closeForm: () => void;
+    createOrEdit: (defect: IDefect) => void;
 }
 
-export default function DefectForm({defect: selectedDefect, closeForm}: IProps)
+export default function DefectForm({defect: selectedDefect, closeForm, createOrEdit}: IProps)
 {
 
     const initialState = selectedDefect ?? {
@@ -25,7 +26,7 @@ export default function DefectForm({defect: selectedDefect, closeForm}: IProps)
 
     function handleSubmit()
     {
-        console.log(defect);
+        createOrEdit(defect);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)

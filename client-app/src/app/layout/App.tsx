@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Header, List } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { IDefect } from '../models/defect';
 import NavBar from './NavBar';
 import DefectDashboard from '../../features/defects/dashboard/DefectDashboard';
+import {v4 as uuid} from 'uuid';
 
 function App() {
   const [defects, setDefects] = useState<IDefect[]>([])
@@ -37,6 +38,20 @@ function App() {
     setEditMode(false);
   }
 
+  function handleCreateOrEditDefect(defect: IDefect)
+  {
+    defect.id 
+      ? setDefects([...defects.filter(x => x.id !== defect.id), defect]) 
+      : setDefects([...defects, {...defect, id: uuid()}]);
+    setEditMode(false);
+    setSelectedDefect(defect);
+  }
+
+  function handleDeleteDefect(id: string)
+  {
+    setDefects([...defects.filter(x => x.id !== id)]);
+  }
+
   return (
     <Fragment>
       <NavBar openForm={handleFormOpen} />
@@ -49,6 +64,8 @@ function App() {
           editMode = {editMode}
           openForm = {handleFormOpen}
           closeForm = {handleFormClose}
+          createOrEdit = {handleCreateOrEditDefect}
+          deleteDefect = {handleDeleteDefect}
         />
       </Container>
     </Fragment>

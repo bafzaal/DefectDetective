@@ -6,9 +6,10 @@ interface IProps
 {
     defects: IDefect[];
     selectDefect: (id: String) => void;
+    deleteDefect: (id: string) => void; 
 }
 
-export default function DefectList({defects, selectDefect}: IProps)
+export default function DefectList({defects, selectDefect, deleteDefect}: IProps)
 {
     return(
         <Segment>
@@ -24,6 +25,7 @@ export default function DefectList({defects, selectDefect}: IProps)
                             </Item.Description>
                             <Item.Extra>
                                 <Button onClick={() => selectDefect(defect.id)} floated='right' content='View' color='blue' />
+                                <Button onClick={() => deleteDefect(defect.id)} floated='right' content='Delete' color='red' />
                                 <Label basic content={defect.category} />
                             </Item.Extra>
                         </Item.Content>

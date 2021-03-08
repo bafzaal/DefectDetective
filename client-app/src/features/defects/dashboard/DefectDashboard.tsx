@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, List } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
 import DefectDetails from '../details/DefectDetails';
 import DefectForm from '../form/DefectForm';
@@ -14,15 +14,20 @@ interface IProps
     editMode: boolean;
     openForm: (id: string) => void;
     closeForm: () => void;
+    createOrEdit: (defect: IDefect) => void;
+    deleteDefect: (id: string) => void; 
 }
 
-export default function DefectDashboard({defects, selectedDefect, selectDefect,
-     cancelSelectDefect, editMode, openForm, closeForm}: IProps)
+export default function DefectDashboard({defects, selectedDefect, selectDefect, deleteDefect,
+     cancelSelectDefect, editMode, openForm, closeForm, createOrEdit}: IProps)
 {
     return(
         <Grid>
             <Grid.Column width='10'>
-            <DefectList defects={defects} selectDefect={selectDefect} />             
+            <DefectList defects={defects} 
+                selectDefect={selectDefect} 
+                deleteDefect={deleteDefect}
+            />             
             </Grid.Column>
             <Grid.Column width='6'>
                 {selectedDefect && !editMode &&
@@ -32,7 +37,7 @@ export default function DefectDashboard({defects, selectedDefect, selectDefect,
                     openForm={openForm}
                 />}
                 {editMode && 
-                <DefectForm closeForm={closeForm} defect={selectedDefect} />}
+                <DefectForm closeForm={closeForm} defect={selectedDefect} createOrEdit={createOrEdit} />}
             </Grid.Column>
         </Grid>
     )
