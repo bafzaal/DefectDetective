@@ -5,11 +5,13 @@ import NavBar from './NavBar';
 import DefectDashboard from '../../features/defects/dashboard/DefectDashboard';
 import {v4 as uuid} from 'uuid';
 import agent from '../api/Agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [defects, setDefects] = useState<IDefect[]>([])
   const [selectedDefect, setSelectedDefect] = useState<IDefect | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     agent.Defects.list().then(response => {
@@ -19,6 +21,7 @@ function App() {
         defects.push(defect);
       })
       setDefects(defects);
+      setLoading(false);
     })
   }, [])
 
@@ -56,6 +59,14 @@ function App() {
   {
     setDefects([...defects.filter(x => x.id !== id)]);
   }
+
+  console.log("before if")
+  if(loading)
+  {
+    console.log("in if")
+    return <LoadingComponent content="Loading App" />
+  }
+  console.log("out of if")
 
   return (
     <Fragment>
