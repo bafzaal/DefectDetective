@@ -73,7 +73,12 @@ function App() {
 
   function handleDeleteDefect(id: string)
   {
-    setDefects([...defects.filter(x => x.id !== id)]);
+    setSubmitting(true);
+    agent.Defects.delete(id).then(() => {
+      setDefects([...defects.filter(x => x.id !== id)]);
+      setSubmitting(false);
+    })
+    
   }
 
   console.log("before if")

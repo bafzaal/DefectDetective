@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
 
@@ -7,10 +7,19 @@ interface IProps
     defects: IDefect[];
     selectDefect: (id: String) => void;
     deleteDefect: (id: string) => void; 
+    submitting: boolean;
 }
 
-export default function DefectList({defects, selectDefect, deleteDefect}: IProps)
+export default function DefectList({defects, selectDefect, deleteDefect, submitting}: IProps)
 {
+    const [target, setTarget] = useState('');
+
+    function handleDefectDelete(e: SyntheticEvent<HTMLButtonElement>, id: string)
+    {
+        setTarget(e.currentTarget.name);
+        deleteDefect(id);
+    }
+
     return(
         <Segment>
             <Item.Group divided>
@@ -25,7 +34,14 @@ export default function DefectList({defects, selectDefect, deleteDefect}: IProps
                             </Item.Description>
                             <Item.Extra>
                                 <Button onClick={() => selectDefect(defect.id)} floated='right' content='View' color='blue' />
-                                <Button onClick={() => deleteDefect(defect.id)} floated='right' content='Delete' color='red' />
+                                <Button 
+                                    name={defect.id}
+                                    loading={submitting && target === defect.id} 
+                                    onClick={(e) => handleDefectDelete(e, defect.id)}
+                                    floated='right' 
+                                    content='Delete' 
+                                    color='red' 
+                                />
                                 <Label basic content={defect.category} />
                             </Item.Extra>
                         </Item.Content>

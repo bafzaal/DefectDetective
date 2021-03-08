@@ -28,6 +28,7 @@ export default function DefectDashboard({defects, selectedDefect, selectDefect, 
             <DefectList defects={defects} 
                 selectDefect={selectDefect} 
                 deleteDefect={deleteDefect}
+                submitting={submitting}
             />             
             </Grid.Column>
             <Grid.Column width='6'>
