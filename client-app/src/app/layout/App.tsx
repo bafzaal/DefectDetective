@@ -12,6 +12,7 @@ function App() {
   const [selectedDefect, setSelectedDefect] = useState<IDefect | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     agent.Defects.list().then(response => {
@@ -48,11 +49,26 @@ function App() {
 
   function handleCreateOrEditDefect(defect: IDefect)
   {
-    defect.id 
-      ? setDefects([...defects.filter(x => x.id !== defect.id), defect]) 
-      : setDefects([...defects, {...defect, id: uuid()}]);
-    setEditMode(false);
-    setSelectedDefect(defect);
+    setSubmitting(true);
+    if(defect.id)
+    {
+      agent.Defects.update(defect).then(() => {
+        setDefects([...defects.filter(x => x.id !== defect.id), defect])
+        setSelectedDefect(defect);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
+    else
+    {
+      defect.id = uuid();
+      agent.Defects.create(defect).then(() => {
+        setDefects([...defects, defect]);
+        setSelectedDefect(defect);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
   }
 
   function handleDeleteDefect(id: string)
@@ -82,6 +98,7 @@ function App() {
           closeForm = {handleFormClose}
           createOrEdit = {handleCreateOrEditDefect}
           deleteDefect = {handleDeleteDefect}
+          submitting = {submitting}
         />
       </Container>
     </Fragment>

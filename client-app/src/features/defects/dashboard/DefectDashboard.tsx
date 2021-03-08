@@ -16,10 +16,11 @@ interface IProps
     closeForm: () => void;
     createOrEdit: (defect: IDefect) => void;
     deleteDefect: (id: string) => void; 
+    submitting: boolean;
 }
 
 export default function DefectDashboard({defects, selectedDefect, selectDefect, deleteDefect,
-     cancelSelectDefect, editMode, openForm, closeForm, createOrEdit}: IProps)
+     cancelSelectDefect, editMode, openForm, closeForm, createOrEdit, submitting}: IProps)
 {
     return(
         <Grid>
@@ -37,7 +38,12 @@ export default function DefectDashboard({defects, selectedDefect, selectDefect, 
                     openForm={openForm}
                 />}
                 {editMode && 
-                <DefectForm closeForm={closeForm} defect={selectedDefect} createOrEdit={createOrEdit} />}
+                <DefectForm 
+                    closeForm={closeForm} 
+                    defect={selectedDefect} 
+                    createOrEdit={createOrEdit} 
+                    submitting={submitting}
+                />}
             </Grid.Column>
         </Grid>
     )

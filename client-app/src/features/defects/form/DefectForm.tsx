@@ -7,9 +7,10 @@ interface IProps
     defect: IDefect | undefined;
     closeForm: () => void;
     createOrEdit: (defect: IDefect) => void;
+    submitting: boolean;
 }
 
-export default function DefectForm({defect: selectedDefect, closeForm, createOrEdit}: IProps)
+export default function DefectForm({defect: selectedDefect, closeForm, createOrEdit, submitting}: IProps)
 {
 
     const initialState = selectedDefect ?? {
@@ -44,7 +45,7 @@ export default function DefectForm({defect: selectedDefect, closeForm, createOrE
                 <Form.Input type='date' placeholder='Date' value={defect.date} name='date' onChange={handleInputChange} />
                 <Form.Input placeholder='Priority' value={defect.priority} name='priority' onChange={handleInputChange} />
                 <Form.Input placeholder='Status' value={defect.status} name='status' onChange={handleInputChange} />
-                <Button floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
+                <Button loading={submitting} floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated='right' type='button' content='Cancel' onChange={handleInputChange} />
             </Form>
         </Segment>

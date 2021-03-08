@@ -29,7 +29,11 @@ const requests = {
 }
 
 const Defects = {
-    list: () => requests.get<IDefect[]>('/defects')
+    list: () => requests.get<IDefect[]>('/defects'),
+    details: (id: string) => requests.get<IDefect>(`/defects/${id}`),
+    create: (defect: IDefect) => requests.post<void>('/defects', defect),
+    update: (defect: IDefect) => requests.put<void>(`/defects/${defect.id}`, defect),
+    delete: (id: string) => requests.del<void>(`/defects/${id}`)
 }
 
 const agent = {
