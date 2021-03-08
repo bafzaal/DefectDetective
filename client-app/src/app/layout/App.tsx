@@ -81,13 +81,10 @@ function App() {
     
   }
 
-  console.log("before if")
   if(loading)
   {
-    console.log("in if")
     return <LoadingComponent content="Loading App" />
   }
-  console.log("out of if")
 
   return (
     <Fragment>
