@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import axios from 'axios';
 import { Container } from 'semantic-ui-react';
 import { IDefect } from '../models/defect';
 import NavBar from './NavBar';
 import DefectDashboard from '../../features/defects/dashboard/DefectDashboard';
 import {v4 as uuid} from 'uuid';
+import agent from '../api/Agent';
 
 function App() {
   const [defects, setDefects] = useState<IDefect[]>([])
@@ -12,8 +12,13 @@ function App() {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios.get<IDefect[]>('http://localhost:5000/api/defects').then(response => {
-      setDefects(response.data);
+    agent.Defects.list().then(response => {
+      let defects: IDefect[] = [];
+      response.forEach(defect => {
+        defect.date = defect.date.split('T')[0];
+        defects.push(defect);
+      })
+      setDefects(defects);
     })
   }, [])
 
