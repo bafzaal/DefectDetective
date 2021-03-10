@@ -1,28 +1,22 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import DefectDashboard from '../../features/defects/dashboard/DefectDashboard';
-import LoadingComponent from './LoadingComponent';
-import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
+import { Route } from 'react-router';
+import HomePage from '../../features/home/HomePage';
+import DefectForm from '../../features/defects/form/DefectForm';
+import DefectDetails from '../../features/defects/details/DefectDetails';
 
 function App() {
-  const {defectStore} = useStore();
-
-  useEffect(() => {
-    defectStore.loadDefects();
-  }, [defectStore])
-
-  if(defectStore.loadingInitial)
-  {
-    return <LoadingComponent content="Loading App" />
-  }
-
   return (
     <Fragment>
       <NavBar />
       <Container style={{marginTop: '7em'}}>
-        <DefectDashboard />
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/defects' component={DefectDashboard} />
+        <Route path='/defects/:id' component={DefectDetails} />
+        <Route path='/createDefect' component={DefectForm} />
       </Container>
     </Fragment>
   );

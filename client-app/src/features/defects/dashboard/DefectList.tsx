@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { SyntheticEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
@@ -29,7 +30,7 @@ export default observer(function DefectList()
                                 <div>{defect.priority}, {defect.status}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => defectStore.selectDefect(defect.id)} floated='right' content='View' color='blue' />
+                                <Button as={Link} to={`/defects/${defect.id}`} floated='right' content='View' color='blue' />
                                 <Button 
                                     name={defect.id}
                                     loading={loading && target === defect.id} 

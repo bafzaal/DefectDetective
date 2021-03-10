@@ -1,16 +1,22 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
-import DefectDetails from '../details/DefectDetails';
-import DefectForm from '../form/DefectForm';
 import DefectList from './DefectList';
 
 export default observer(function DefectDashboard()
 {
-
     const {defectStore} = useStore();
-    const {selectedDefect, editMode} = defectStore;
+
+    useEffect(() => {
+        defectStore.loadDefects();
+    }, [defectStore])
+
+    if(defectStore.loadingInitial)
+    {
+        return <LoadingComponent content="Loading App" />
+    }
 
     return(
         <Grid>
@@ -18,10 +24,7 @@ export default observer(function DefectDashboard()
             <DefectList />             
             </Grid.Column>
             <Grid.Column width='6'>
-                {selectedDefect && !editMode &&
-                <DefectDetails />}
-                {editMode && 
-                <DefectForm />}
+                <h2>Defect Filters</h2>
             </Grid.Column>
         </Grid>
     )

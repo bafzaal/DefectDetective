@@ -7,7 +7,7 @@ export default observer(function DefectForm()
 {
 
     const {defectStore} = useStore();
-    const {selectedDefect, closeForm, createDefect, updateDefect, loading} = defectStore;
+    const {selectedDefect, createDefect, updateDefect, loading} = defectStore;
 
     const initialState = selectedDefect ?? {
         id: '',
@@ -42,7 +42,7 @@ export default observer(function DefectForm()
                 <Form.Input placeholder='Priority' value={defect.priority} name='priority' onChange={handleInputChange} />
                 <Form.Input placeholder='Status' value={defect.status} name='status' onChange={handleInputChange} />
                 <Button loading={loading} floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
-                <Button onClick={closeForm} floated='right' type='button' content='Cancel' onChange={handleInputChange} />
+                <Button floated='right' type='button' content='Cancel' onChange={handleInputChange} />
             </Form>
         </Segment>
     )
