@@ -1,13 +1,12 @@
 import React from 'react';
 import { Button, Container, Menu } from 'semantic-ui-react';
+import { useStore } from '../stores/store';
 
-interface IProps
+export default function NavBar()
 {
-    openForm: () => void;
-}
 
-export default function NavBar({openForm}: IProps)
-{
+    const {defectStore} = useStore();
+
     return(
         <Menu inverted fixed='top'>
             <Container>
@@ -17,7 +16,7 @@ export default function NavBar({openForm}: IProps)
                 </Menu.Item>
                 <Menu.Item name='Defects' />
                 <Menu.Item>
-                    <Button onClick={openForm} positive content='Create Defect' />
+                    <Button onClick={() => defectStore.openForm()} positive content='Create Defect' />
                 </Menu.Item>
             </Container>
         </Menu>

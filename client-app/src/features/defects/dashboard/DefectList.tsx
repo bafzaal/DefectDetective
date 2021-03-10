@@ -1,17 +1,13 @@
+import { observer } from 'mobx-react-lite';
 import React, { SyntheticEvent, useState } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
-import { IDefect } from '../../../app/models/defect';
+import { useStore } from '../../../app/stores/store';
 
-interface IProps
+export default observer(function DefectList()
 {
-    defects: IDefect[];
-    selectDefect: (id: String) => void;
-    deleteDefect: (id: string) => void; 
-    submitting: boolean;
-}
+    const {defectStore} = useStore();
+    const {deleteDefect, defects, loading} = defectStore;
 
-export default function DefectList({defects, selectDefect, deleteDefect, submitting}: IProps)
-{
     const [target, setTarget] = useState('');
 
     function handleDefectDelete(e: SyntheticEvent<HTMLButtonElement>, id: string)
@@ -33,10 +29,10 @@ export default function DefectList({defects, selectDefect, deleteDefect, submitt
                                 <div>{defect.priority}, {defect.status}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => selectDefect(defect.id)} floated='right' content='View' color='blue' />
+                                <Button onClick={() => defectStore.selectDefect(defect.id)} floated='right' content='View' color='blue' />
                                 <Button 
                                     name={defect.id}
-                                    loading={submitting && target === defect.id} 
+                                    loading={loading && target === defect.id} 
                                     onClick={(e) => handleDefectDelete(e, defect.id)}
                                     floated='right' 
                                     content='Delete' 
@@ -50,4 +46,4 @@ export default function DefectList({defects, selectDefect, deleteDefect, submitt
             </Item.Group>
         </Segment>
     )
-}
+})

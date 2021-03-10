@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
-import { IDefect } from '../../../app/models/defect';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { useStore } from '../../../app/stores/store';
 
-interface Props
+export default function DefectDetails()
 {
-    defect: IDefect;
-    cancelSelectDefect: () => void;
-    openForm: (id: string) => void;
-}
 
-export default function DefectDetails({defect, cancelSelectDefect, openForm}: Props)
-{
+    const {defectStore} = useStore();
+    const {selectedDefect: defect, openForm, cancelSelectedDefect} = defectStore;
+
+    if(!defect) return <LoadingComponent />;
+
     return(
         <Card fluid>
             <Image src={`/assets/categoryImages/${defect.category}.jpg`} />
@@ -26,7 +26,7 @@ export default function DefectDetails({defect, cancelSelectDefect, openForm}: Pr
             <Card.Content extra>
                 <Button.Group widths='2'>
                     <Button onClick={() => openForm(defect.id)} basic color='blue' content='Edit' />
-                    <Button onClick={cancelSelectDefect} basic color='grey' content='Cancel' />
+                    <Button onClick={cancelSelectedDefect} basic color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>
         </Card>

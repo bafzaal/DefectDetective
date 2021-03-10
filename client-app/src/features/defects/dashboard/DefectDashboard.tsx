@@ -1,51 +1,28 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { IDefect } from '../../../app/models/defect';
+import { useStore } from '../../../app/stores/store';
 import DefectDetails from '../details/DefectDetails';
 import DefectForm from '../form/DefectForm';
 import DefectList from './DefectList';
 
-interface IProps
+export default observer(function DefectDashboard()
 {
-    defects: IDefect[];
-    selectedDefect: IDefect | undefined;
-    selectDefect: (id: String) => void;
-    cancelSelectDefect: () => void;
-    editMode: boolean;
-    openForm: (id: string) => void;
-    closeForm: () => void;
-    createOrEdit: (defect: IDefect) => void;
-    deleteDefect: (id: string) => void; 
-    submitting: boolean;
-}
 
-export default function DefectDashboard({defects, selectedDefect, selectDefect, deleteDefect,
-     cancelSelectDefect, editMode, openForm, closeForm, createOrEdit, submitting}: IProps)
-{
+    const {defectStore} = useStore();
+    const {selectedDefect, editMode} = defectStore;
+
     return(
         <Grid>
             <Grid.Column width='10'>
-            <DefectList defects={defects} 
-                selectDefect={selectDefect} 
-                deleteDefect={deleteDefect}
-                submitting={submitting}
-            />             
+            <DefectList />             
             </Grid.Column>
             <Grid.Column width='6'>
                 {selectedDefect && !editMode &&
-                <DefectDetails 
-                    defect={selectedDefect} 
-                    cancelSelectDefect={cancelSelectDefect} 
-                    openForm={openForm}
-                />}
+                <DefectDetails />}
                 {editMode && 
-                <DefectForm 
-                    closeForm={closeForm} 
-                    defect={selectedDefect} 
-                    createOrEdit={createOrEdit} 
-                    submitting={submitting}
-                />}
+                <DefectForm />}
             </Grid.Column>
         </Grid>
     )
-}
+})

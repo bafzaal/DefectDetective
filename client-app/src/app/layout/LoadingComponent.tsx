@@ -4,7 +4,7 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 interface IProps
 {
     inverted?: boolean;
-    content: string;
+    content?: string;
 }
 
 export default function LoadingComponent({inverted = true, content = 'Loading...'}: IProps)

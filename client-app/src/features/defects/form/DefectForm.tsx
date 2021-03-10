@@ -1,17 +1,13 @@
+import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useState } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
-import { IDefect } from '../../../app/models/defect';
+import { useStore } from '../../../app/stores/store';
 
-interface IProps
+export default observer(function DefectForm()
 {
-    defect: IDefect | undefined;
-    closeForm: () => void;
-    createOrEdit: (defect: IDefect) => void;
-    submitting: boolean;
-}
 
-export default function DefectForm({defect: selectedDefect, closeForm, createOrEdit, submitting}: IProps)
-{
+    const {defectStore} = useStore();
+    const {selectedDefect, closeForm, createDefect, updateDefect, loading} = defectStore;
 
     const initialState = selectedDefect ?? {
         id: '',
@@ -27,7 +23,7 @@ export default function DefectForm({defect: selectedDefect, closeForm, createOrE
 
     function handleSubmit()
     {
-        createOrEdit(defect);
+        defect.id ? updateDefect(defect) : createDefect(defect);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
@@ -45,9 +41,9 @@ export default function DefectForm({defect: selectedDefect, closeForm, createOrE
                 <Form.Input type='date' placeholder='Date' value={defect.date} name='date' onChange={handleInputChange} />
                 <Form.Input placeholder='Priority' value={defect.priority} name='priority' onChange={handleInputChange} />
                 <Form.Input placeholder='Status' value={defect.status} name='status' onChange={handleInputChange} />
-                <Button loading={submitting} floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
+                <Button loading={loading} floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated='right' type='button' content='Cancel' onChange={handleInputChange} />
             </Form>
         </Segment>
     )
-}
+})
