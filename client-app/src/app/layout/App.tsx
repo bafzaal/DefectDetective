@@ -3,12 +3,15 @@ import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import DefectDashboard from '../../features/defects/dashboard/DefectDashboard';
 import { observer } from 'mobx-react-lite';
-import { Route } from 'react-router';
+import { Route, useLocation } from 'react-router';
 import HomePage from '../../features/home/HomePage';
 import DefectForm from '../../features/defects/form/DefectForm';
 import DefectDetails from '../../features/defects/details/DefectDetails';
 
 function App() {
+
+  const location = useLocation();
+
   return (
     <Fragment>
       <NavBar />
@@ -16,7 +19,7 @@ function App() {
         <Route exact path='/' component={HomePage} />
         <Route exact path='/defects' component={DefectDashboard} />
         <Route path='/defects/:id' component={DefectDetails} />
-        <Route path='/createDefect' component={DefectForm} />
+        <Route key={location.key} path={['/createDefect', '/manage/:id']} component={DefectForm} />
       </Container>
     </Fragment>
   );

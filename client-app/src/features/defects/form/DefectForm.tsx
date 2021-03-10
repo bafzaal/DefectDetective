@@ -1,25 +1,28 @@
 import { observer } from 'mobx-react-lite';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { Button, Form, Segment } from 'semantic-ui-react';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
 
 export default observer(function DefectForm()
 {
-
     const {defectStore} = useStore();
-    const {selectedDefect, createDefect, updateDefect, loading} = defectStore;
-
-    const initialState = selectedDefect ?? {
+    const {createDefect, updateDefect, loading, loadDefect, loadingInitial} = defectStore;
+    const {id} = useParams<{id: string}>();
+    const [defect, setDefect] = useState({
         id: '',
         title: '',
         category: '',
         description: '',
         date: '',
         priority: '',
-        status: '',
-    }
+        status: ''
+    });
 
-    const [defect, setDefect] = useState(initialState);
+    useEffect(() => {
+        if (id) loadDefect(id).then(defect => setDefect(defect!))
+    }, [id, loadDefect]);
 
     function handleSubmit()
     {
@@ -31,6 +34,8 @@ export default observer(function DefectForm()
         const {name, value} = event.target;
         setDefect({...defect, [name]: value})
     }
+
+    if(loadingInitial) return <LoadingComponent content='Loading Defect...' />
 
     return(
         <Segment clearing>

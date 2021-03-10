@@ -46,6 +46,7 @@ export default class DefectStore
         if(defect)
         {
             this.selectedDefect = defect;
+            return defect;
         }
         else
         {
@@ -54,8 +55,9 @@ export default class DefectStore
             {
                 defect = await agent.Defects.details(id);
                 this.setDefect(defect);
-                this.selectedDefect = defect;
+                runInAction(() => {this.selectedDefect = defect;});
                 this.setLoadingInitial(false);
+                return defect;
             }
             catch(error)
             {
