@@ -6,7 +6,7 @@ import { useStore } from '../../../app/stores/store';
 export default observer(function DefectList()
 {
     const {defectStore} = useStore();
-    const {deleteDefect, defects, loading} = defectStore;
+    const {deleteDefect, defectsByDate, loading} = defectStore;
 
     const [target, setTarget] = useState('');
 
@@ -19,7 +19,7 @@ export default observer(function DefectList()
     return(
         <Segment>
             <Item.Group divided>
-                {defects.map(defect => (
+                {defectsByDate.map(defect => (
                     <Item key={defect.id}>
                         <Item.Content>
                             <Item.Header as='a'>{defect.title}</Item.Header>

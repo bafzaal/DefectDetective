@@ -5,26 +5,31 @@ import {v4 as uuid} from 'uuid';
 
 export default class DefectStore
 {
-    defects: IDefect[] = [];
+    defectRegistry = new Map<string, IDefect>();
     selectedDefect: IDefect | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = false;
+    loadingInitial = true;
 
     constructor()
     {
         makeAutoObservable(this)
     }
 
+    get defectsByDate()
+    {
+        return Array.from(this.defectRegistry.values()).sort((a, b) => 
+        Date.parse(a.date) - Date.parse(b.date));
+    }
+
     loadDefects = async () =>
     {
-        this.setLoadingInitial(true);
         try
         {
             const defects = await agent.Defects.list();
             defects.forEach(defect => {
                 defect.date = defect.date.split('T')[0];
-                this.defects.push(defect);
+                this.defectRegistry.set(defect.id, defect);
             })
             this.setLoadingInitial(false);
         }
@@ -42,7 +47,7 @@ export default class DefectStore
 
     selectDefect = (id: string) =>
     {
-        this.selectedDefect = this.defects.find(d => d.id === id);
+        this.selectedDefect = this.defectRegistry.get(id);
     }
 
     cancelSelectedDefect = () => 
@@ -69,7 +74,7 @@ export default class DefectStore
         {
             await agent.Defects.create(defect);
             runInAction(() => {
-                this.defects.push(defect);
+                this.defectRegistry.set(defect.id, defect);
                 this.selectedDefect = defect;
                 this.editMode = false;
                 this.loading = false;
@@ -91,7 +96,7 @@ export default class DefectStore
         {
             await agent.Defects.update(defect);
             runInAction(() => {
-                this.defects = [...this.defects.filter(d => d.id !== defect.id), defect];
+                this.defectRegistry.set(defect.id, defect);
                 this.selectedDefect = defect;
                 this.editMode = false;
                 this.loading = false;
@@ -114,7 +119,7 @@ export default class DefectStore
         {
             await agent.Defects.delete(id);
             runInAction(() => {
-                this.defects = [...this.defects.filter(d => d.id !== id)];
+                this.defectRegistry.delete(id);
                 if (this.selectedDefect?.id === id) this.cancelSelectedDefect();
                 this.loading = false;
             })
