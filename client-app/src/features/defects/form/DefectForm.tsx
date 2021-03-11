@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Button, Form, Segment } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
+import {v4 as uuid} from 'uuid';
 
 export default observer(function DefectForm()
 {
+    const history = useHistory();
     const {defectStore} = useStore();
     const {createDefect, updateDefect, loading, loadDefect, loadingInitial} = defectStore;
     const {id} = useParams<{id: string}>();
@@ -26,7 +28,18 @@ export default observer(function DefectForm()
 
     function handleSubmit()
     {
-        defect.id ? updateDefect(defect) : createDefect(defect);
+        if(defect.id.length === 0)
+        {
+            let newDefect = {
+                ...defect,
+                id: uuid()
+            };
+            createDefect(newDefect).then(() => history.push(`/defects/${newDefect.id}`))
+        }
+        else
+        {
+            updateDefect(defect).then(() => history.push(`/defects/${defect.id}`))
+        }
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)

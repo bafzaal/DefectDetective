@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/Agent";
 import { IDefect } from "../models/defect";
-import {v4 as uuid} from 'uuid';
 
 export default class DefectStore
 {
@@ -86,7 +85,6 @@ export default class DefectStore
     createDefect = async (defect: IDefect) =>
     {
         this.loading = true;
-        defect.id = uuid();
         try
         {
             await agent.Defects.create(defect);
