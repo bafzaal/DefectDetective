@@ -1,48 +1,19 @@
 import { observer } from 'mobx-react-lite';
-import React, { SyntheticEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Item, Label, Segment } from 'semantic-ui-react';
+import React from 'react';
+import { Item, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
+import DefectListItem from './DefectListItem';
 
 export default observer(function DefectList()
 {
     const {defectStore} = useStore();
-    const {deleteDefect, defectsByDate, loading} = defectStore;
-
-    const [target, setTarget] = useState('');
-
-    function handleDefectDelete(e: SyntheticEvent<HTMLButtonElement>, id: string)
-    {
-        setTarget(e.currentTarget.name);
-        deleteDefect(id);
-    }
+    const {defectsByDate} = defectStore;
 
     return(
         <Segment>
             <Item.Group divided>
                 {defectsByDate.map(defect => (
-                    <Item key={defect.id}>
-                        <Item.Content>
-                            <Item.Header as='a'>{defect.title}</Item.Header>
-                            <Item.Meta>{defect.date}</Item.Meta>
-                            <Item.Description>
-                                <div>{defect.description}</div>
-                                <div>{defect.priority}, {defect.status}</div>
-                            </Item.Description>
-                            <Item.Extra>
-                                <Button as={Link} to={`/defects/${defect.id}`} floated='right' content='View' color='blue' />
-                                <Button 
-                                    name={defect.id}
-                                    loading={loading && target === defect.id} 
-                                    onClick={(e) => handleDefectDelete(e, defect.id)}
-                                    floated='right' 
-                                    content='Delete' 
-                                    color='red' 
-                                />
-                                <Label basic content={defect.category} />
-                            </Item.Extra>
-                        </Item.Content>
-                    </Item>
+                    <DefectListItem key={defect.id} defect={defect} />
                 ))}
             </Item.Group>
         </Segment>
