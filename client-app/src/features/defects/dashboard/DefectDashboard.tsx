@@ -8,10 +8,11 @@ import DefectList from './DefectList';
 export default observer(function DefectDashboard()
 {
     const {defectStore} = useStore();
+    const {loadDefects, defectRegistry} = defectStore;
 
     useEffect(() => {
-        defectStore.loadDefects();
-    }, [defectStore])
+        if(defectRegistry.size <= 1) loadDefects();
+    }, [defectRegistry.size, loadDefects])
 
     if(defectStore.loadingInitial)
     {

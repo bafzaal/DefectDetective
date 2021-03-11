@@ -14,13 +14,20 @@ function App() {
 
   return (
     <Fragment>
-      <NavBar />
-      <Container style={{marginTop: '7em'}}>
-        <Route exact path='/' component={HomePage} />
-        <Route exact path='/defects' component={DefectDashboard} />
-        <Route path='/defects/:id' component={DefectDetails} />
-        <Route key={location.key} path={['/createDefect', '/manage/:id']} component={DefectForm} />
-      </Container>
+      <Route exact path='/' component={HomePage} />
+      <Route 
+        path={'/(.+)'}
+        render={() => (
+          <>
+            <NavBar />
+            <Container style={{marginTop: '7em'}}>
+              <Route exact path='/defects' component={DefectDashboard} />
+              <Route path='/defects/:id' component={DefectDetails} />
+              <Route key={location.key} path={['/createDefect', '/manage/:id']} component={DefectForm} />
+            </Container>
+          </>
+        )}
+      />
     </Fragment>
   );
 }

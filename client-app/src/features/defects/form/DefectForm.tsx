@@ -5,6 +5,7 @@ import { Button, Form, Segment } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
 import {v4 as uuid} from 'uuid';
+import { Link } from 'react-router-dom';
 
 export default observer(function DefectForm()
 {
@@ -60,7 +61,7 @@ export default observer(function DefectForm()
                 <Form.Input placeholder='Priority' value={defect.priority} name='priority' onChange={handleInputChange} />
                 <Form.Input placeholder='Status' value={defect.status} name='status' onChange={handleInputChange} />
                 <Button loading={loading} floated='right' positive type='submit' content='Submit' onChange={handleInputChange} />
-                <Button floated='right' type='button' content='Cancel' onChange={handleInputChange} />
+                <Button as={Link} to='/defects' floated='right' type='button' content='Cancel' onChange={handleInputChange} />
             </Form>
         </Segment>
     )
