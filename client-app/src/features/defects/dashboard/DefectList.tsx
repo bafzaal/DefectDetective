@@ -15,13 +15,9 @@ export default observer(function DefectList() {
                     <Header sub color='teal'>
                         {group}
                     </Header>
-                    <Segment>
-                        <Item.Group divided>
-                            {defects.map(defect => (
-                                <DefectListItem key={defect.id} defect={defect} />
-                            ))}
-                        </Item.Group>
-                    </Segment>
+                    {defects.map(defect => (
+                        <DefectListItem key={defect.id} defect={defect} />
+                    ))}
                 </Fragment>
             ))}
         </>

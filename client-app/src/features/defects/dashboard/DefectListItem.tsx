@@ -1,16 +1,14 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Item, Label } from 'semantic-ui-react';
+import { Button, Icon, Item, Label, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
 import { useStore } from '../../../app/stores/store';
 
-interface IProps 
-{
+interface IProps {
     defect: IDefect
 }
 
-export default function DefectListItem({ defect }: IProps) 
-{
+export default function DefectListItem({ defect }: IProps) {
     const { defectStore } = useStore();
     const { deleteDefect, loading } = defectStore;
 
@@ -22,27 +20,39 @@ export default function DefectListItem({ defect }: IProps)
     }
 
     return (
-        <Item key={defect.id}>
-            <Item.Content>
-                <Item.Header as='a'>{defect.title}</Item.Header>
-                <Item.Meta>{defect.date}</Item.Meta>
-                <Item.Description>
-                    <div>{defect.description}</div>
-                    <div>{defect.priority}, {defect.status}</div>
-                </Item.Description>
-                <Item.Extra>
-                    <Button as={Link} to={`/defects/${defect.id}`} floated='right' content='View' color='blue' />
-                    <Button
-                        name={defect.id}
-                        loading={loading && target === defect.id}
-                        onClick={(e) => handleDefectDelete(e, defect.id)}
-                        floated='right'
-                        content='Delete'
-                        color='red'
-                    />
-                    <Label basic content={defect.category} />
-                </Item.Extra>
-            </Item.Content>
-        </Item>
+        <Segment.Group>
+            <Segment>
+                <Item.Group>
+                    <Item>
+                        <Item.Image size='tiny' circular src='/assets/user.png' />
+                        <Item.Content>
+                            <Item.Header as={Link} to={`/defects/${defect.id}`}>
+                                {defect.title}
+                            </Item.Header>
+                        <Item.Description>Hosted by Bilal</Item.Description>
+                        </Item.Content>
+                    </Item>
+                </Item.Group>
+            </Segment>
+            <Segment>
+                <span>
+                    <Icon name='clock' /> {defect.date}
+                    <Icon name='marker' /> {defect.status}
+                </span>
+            </Segment>
+            <Segment secondary>
+                Workers go here
+            </Segment>
+            <Segment clearing>
+                <span>{defect.description}</span>
+                <Button 
+                    as={Link}
+                    to={`/defects/${defect.id}`}
+                    color='teal'
+                    floated='right'
+                    content='View'
+                />
+            </Segment>
+        </Segment.Group>
     )
 }
