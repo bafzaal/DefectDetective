@@ -1,10 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
-import { Button, Card, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
+import DefectDetailedChat from './DefectDetailedChat';
+import DefectDetailedHeader from './DefectDetailedHeader';
+import DefectDetailedInfo from './DefectDetailedInfo';
+import DefectDetailedSidebar from './DefectDetailedSidebar';
 
 export default observer(function DefectDetails()
 {
@@ -20,23 +23,15 @@ export default observer(function DefectDetails()
     if(loadingInitial || !defect) return <LoadingComponent />;
 
     return(
-        <Card fluid>
-            <Image src={`/assets/categoryImages/${defect.category}.jpg`} />
-            <Card.Content>
-                <Card.Header>{defect.title}</Card.Header>
-                <Card.Meta>
-                    <span>{defect.date}</span>
-                </Card.Meta>
-                <Card.Description>
-                    {defect.description}
-                </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <Button.Group widths='2'>
-                    <Button as={Link} to={`/manage/${defect.id}`} basic color='blue' content='Edit' />
-                    <Button as={Link} to='/defects' basic color='grey' content='Cancel' />
-                </Button.Group>
-            </Card.Content>
-        </Card>
+        <Grid>
+            <Grid.Column width={10}>
+                <DefectDetailedHeader defect={defect} />
+                <DefectDetailedInfo defect={defect} />
+                <DefectDetailedChat />
+            </Grid.Column>
+            <Grid.Column width={6}>
+                <DefectDetailedSidebar />
+            </Grid.Column>
+        </Grid>
     )
 })

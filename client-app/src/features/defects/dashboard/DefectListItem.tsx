@@ -1,23 +1,13 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Icon, Item, Label, Segment } from 'semantic-ui-react';
+import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
-import { useStore } from '../../../app/stores/store';
 
 interface IProps {
     defect: IDefect
 }
 
 export default function DefectListItem({ defect }: IProps) {
-    const { defectStore } = useStore();
-    const { deleteDefect, loading } = defectStore;
-
-    const [target, setTarget] = useState('');
-
-    function handleDefectDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
-        setTarget(e.currentTarget.name);
-        deleteDefect(id);
-    }
 
     return (
         <Segment.Group>

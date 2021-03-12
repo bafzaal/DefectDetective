@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
+import DefectFilters from './DefectFilters';
 import DefectList from './DefectList';
 
 export default observer(function DefectDashboard()
@@ -25,7 +26,7 @@ export default observer(function DefectDashboard()
             <DefectList />             
             </Grid.Column>
             <Grid.Column width='6'>
-                <h2>Defect Filters</h2>
+                <DefectFilters />
             </Grid.Column>
         </Grid>
     )
