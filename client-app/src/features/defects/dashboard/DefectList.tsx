@@ -1,21 +1,29 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { Item, Segment } from 'semantic-ui-react';
+import React, { Fragment } from 'react';
+import { Header, Item, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import DefectListItem from './DefectListItem';
 
-export default observer(function DefectList()
-{
-    const {defectStore} = useStore();
-    const {defectsByDate} = defectStore;
+export default observer(function DefectList() {
+    const { defectStore } = useStore();
+    const { groupedDefects } = defectStore;
 
-    return(
-        <Segment>
-            <Item.Group divided>
-                {defectsByDate.map(defect => (
-                    <DefectListItem key={defect.id} defect={defect} />
-                ))}
-            </Item.Group>
-        </Segment>
+    return (
+        <>
+            {groupedDefects.map(([group, defects]) => (
+                <Fragment key={group}>
+                    <Header sub color='teal'>
+                        {group}
+                    </Header>
+                    <Segment>
+                        <Item.Group divided>
+                            {defects.map(defect => (
+                                <DefectListItem key={defect.id} defect={defect} />
+                            ))}
+                        </Item.Group>
+                    </Segment>
+                </Fragment>
+            ))}
+        </>
     )
 })

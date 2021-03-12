@@ -21,6 +21,17 @@ export default class DefectStore
         Date.parse(a.date) - Date.parse(b.date));
     }
 
+    get groupedDefects()
+    {
+        return Object.entries(
+            this.defectsByDate.reduce((defects, defect) => {
+                const date = defect.date;
+                defects[date] = defects[date] ? [...defects[date], defect] : [defect];
+                return defects;
+            }, {} as {[key: string]: IDefect[]})
+        )
+    }
+
     loadDefects = async () =>
     {
         this.loadingInitial = true;
