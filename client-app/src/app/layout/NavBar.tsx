@@ -12,6 +12,7 @@ export default function NavBar()
                     Defect Detective
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/defects' name='Defects' />
+                <Menu.Item as={NavLink} to='/errors' name='Errors' />
                 <Menu.Item>
                     <Button as={NavLink} to='/createDefect' positive content='Create Defect' />
                 </Menu.Item>
