@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 using System.Threading;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using Application.Core;
 
 namespace Application.Defects
 {
     public class List
     {
-        public class Query : IRequest<List<Defect>> { }
+        public class Query : IRequest<Result<List<Defect>>> { }
 
-        public class Handler : IRequestHandler<Query, List<Defect>>
+        public class Handler : IRequestHandler<Query, Result<List<Defect>>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -20,9 +21,9 @@ namespace Application.Defects
                 _context = context;
             }
 
-            public async Task<List<Defect>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<Defect>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Defects.ToListAsync();
+                return Result<List<Defect>>.Success(await _context.Defects.ToListAsync());
             }
         }
     }

@@ -27,7 +27,8 @@ export default function DefectListItem({ defect }: IProps) {
             <Segment>
                 <span>
                     <Icon name='clock' /> {defect.date}
-                    <Icon name='marker' /> {defect.status}
+                    <Icon name='exclamation' /> {defect.priority}
+                    <Icon name='info' /> {defect.status}
                 </span>
             </Segment>
             <Segment secondary>
