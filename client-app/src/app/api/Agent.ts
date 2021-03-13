@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
+import { history } from '../..';
 import { IDefect } from '../models/defect';
 
 const sleep = (delay: number) => {
@@ -25,6 +26,7 @@ axios.interceptors.response.use(async response => {
             break;
         case 404:
             toast.error("Not Found");
+            history.push('/not-found');
             break;
         case 500:
             toast.error("Server Error");
