@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { IDefect } from '../models/defect';
+import { store } from '../stores/store';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -15,10 +16,18 @@ axios.interceptors.response.use(async response => {
     await sleep(1000);
     return response;
 }, (error: AxiosError) => {
-    const {data, status} = error.response!;
+    const {data, status, config} = error.response!;
     switch(status)
     {
         case 400: 
+            if(typeof data === 'string')
+            {
+                toast.error(data);
+            }
+            if(config.method === 'get' && data.errors.hasOwnProperty('id'))
+            {
+                history.push('/not-found');
+            }
             if(data.errors)
             {
                 const modalStateErrors = [];
@@ -31,10 +40,6 @@ axios.interceptors.response.use(async response => {
                 }
                 throw modalStateErrors.flat()
             }
-            else
-            {
-                toast.error(data);
-            }
             break;
         case 401:
             toast.error('Unauthorized');
@@ -44,7 +49,8 @@ axios.interceptors.response.use(async response => {
             history.push('/not-found');
             break;
         case 500:
-            toast.error("Server Error");
+            store.commonStore.setServerError(data);
+            history.push('/server-error');
             break;
     }
     return Promise.reject(error);
