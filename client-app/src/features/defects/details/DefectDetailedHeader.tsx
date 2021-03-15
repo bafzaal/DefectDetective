@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
+import { Link } from 'react-router-dom';
 import {Button, Header, Item, Segment, Image} from 'semantic-ui-react'
 import {IDefect} from "../../../app/models/defect";
 
@@ -46,7 +47,7 @@ export default observer (function DefectDetailedHeader({defect}: IProps) {
             <Segment clearing attached='bottom'>
                 <Button color='teal'>Work on Defect</Button>
                 <Button>Cancel Work</Button>
-                <Button color='orange' floated='right'>
+                <Button as={Link} to={`/manage/${defect.id}`} color='orange' floated='right'>
                     Manage Defect
                 </Button>
             </Segment>

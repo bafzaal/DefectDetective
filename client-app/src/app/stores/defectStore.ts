@@ -8,7 +8,7 @@ export default class DefectStore
     selectedDefect: IDefect | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
 
     constructor()
     {
