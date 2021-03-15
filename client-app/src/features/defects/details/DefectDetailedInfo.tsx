@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react'
 import {Segment, Grid, Icon} from 'semantic-ui-react'
 import {IDefect} from "../../../app/models/defect";
+import {format} from 'date-fns';
 
 interface IProps {
     defect: IDefect
@@ -27,7 +28,7 @@ export default observer(function DefectDetailedInfo({defect}: IProps) {
                     </Grid.Column>
                     <Grid.Column width={15}>
             <span>
-              {defect.date}
+              {format(defect.date!, 'dd MMM yyyy h:mm aa')}
             </span>
                     </Grid.Column>
                 </Grid>

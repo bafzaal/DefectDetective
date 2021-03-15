@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/Agent";
 import { IDefect } from "../models/defect";
+import {format} from 'date-fns';
 
 export default class DefectStore
 {
@@ -18,14 +19,14 @@ export default class DefectStore
     get defectsByDate()
     {
         return Array.from(this.defectRegistry.values()).sort((a, b) => 
-        Date.parse(a.date) - Date.parse(b.date));
+        a.date!.getTime() - b.date!.getTime());
     }
 
     get groupedDefects()
     {
         return Object.entries(
             this.defectsByDate.reduce((defects, defect) => {
-                const date = defect.date;
+                const date = format(defect.date!, 'dd MMM yyyy');
                 defects[date] = defects[date] ? [...defects[date], defect] : [defect];
                 return defects;
             }, {} as {[key: string]: IDefect[]})
@@ -79,7 +80,7 @@ export default class DefectStore
 
     private setDefect = (defect: IDefect) =>
     {
-        defect.date = defect.date.split('T')[0];
+        defect.date = new Date(defect.date!);
         this.defectRegistry.set(defect.id, defect);
     }
 

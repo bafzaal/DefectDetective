@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import {Button, Header, Item, Segment, Image} from 'semantic-ui-react'
 import {IDefect} from "../../../app/models/defect";
+import {format} from 'date-fns';
 
 const defectImageStyle = {
     filter: 'brightness(30%)'
@@ -35,7 +36,7 @@ export default observer (function DefectDetailedHeader({defect}: IProps) {
                                     content={defect.title}
                                     style={{color: 'white'}}
                                 />
-                                <p>{defect.date}</p>
+                                <p>{format(defect.date!, 'dd MMM yyyy')}</p>
                                 <p>
                                     Hosted by <strong>Bilal</strong>
                                 </p>

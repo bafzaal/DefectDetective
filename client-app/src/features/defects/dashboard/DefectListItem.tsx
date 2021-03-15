@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
+import {format} from 'date-fns';
 
 interface IProps {
     defect: IDefect
@@ -26,7 +27,7 @@ export default function DefectListItem({ defect }: IProps) {
             </Segment>
             <Segment>
                 <span>
-                    <Icon name='clock' /> {defect.date}
+                    <Icon name='clock' /> {format(defect.date!, 'dd MMM yyyy h:mm aa')}
                     <Icon name='exclamation' /> {defect.priority}
                     <Icon name='info' /> {defect.status}
                 </span>

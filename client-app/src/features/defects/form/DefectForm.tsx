@@ -1,26 +1,31 @@
 import { observer } from 'mobx-react-lite';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { Button, Label, Segment } from 'semantic-ui-react';
+import { Button, Header, Segment } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
 import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
-import { Formik, Form, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
+import MyTextArea from '../../../app/common/form/MyTextArea';
+import MyComboBox from '../../../app/common/form/MyComboBox';
+import { categoryOptions } from '../../../app/common/options/categoryOptions';
+import MyDateInput from '../../../app/common/form/MyDateInput';
+import { IDefect } from '../../../app/models/defect';
 
 export default observer(function DefectForm() {
     const history = useHistory();
     const { defectStore } = useStore();
     const { createDefect, updateDefect, loading, loadDefect, loadingInitial } = defectStore;
     const { id } = useParams<{ id: string }>();
-    const [defect, setDefect] = useState({
+    const [defect, setDefect] = useState<IDefect>({
         id: '',
         title: '',
         category: '',
         description: '',
-        date: '',
+        date: null,
         priority: '',
         status: ''
     });
@@ -29,7 +34,7 @@ export default observer(function DefectForm() {
         title: Yup.string().required('The defect title is required'),
         description: Yup.string().required('The defect description is required'),
         category: Yup.string().required(),
-        date: Yup.string().required(),
+        date: Yup.string().required('Date is required').nullable(),
         priority: Yup.string().required(),
         status: Yup.string().required(),
     })
@@ -38,51 +43,63 @@ export default observer(function DefectForm() {
         if (id) loadDefect(id).then(defect => setDefect(defect!))
     }, [id, loadDefect]);
 
-    // function handleSubmit()
-    // {
-    //     if(defect.id.length === 0)
-    //     {
-    //         let newDefect = {
-    //             ...defect,
-    //             id: uuid()
-    //         };
-    //         createDefect(newDefect).then(() => history.push(`/defects/${newDefect.id}`))
-    //     }
-    //     else
-    //     {
-    //         updateDefect(defect).then(() => history.push(`/defects/${defect.id}`))
-    //     }
-    // }
-
-    // function handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
-    // {
-    //     const {name, value} = event.target;
-    //     setDefect({...defect, [name]: value})
-    // }
+    function handleFormSubmit(defect: IDefect) {
+        if (defect.id.length === 0) {
+            let newDefect = {
+                ...defect,
+                id: uuid()
+            };
+            createDefect(newDefect).then(() => history.push(`/defects/${newDefect.id}`))
+        }
+        else {
+            updateDefect(defect).then(() => history.push(`/defects/${defect.id}`))
+        }
+    }
 
     if (loadingInitial) return <LoadingComponent content='Loading Defect...' />
 
     return (
+        <>
+        <Header as='h2' content='Defect Details' size='huge' textAlign='center' color='blue' />
         <Segment clearing>
             <Formik
                 validationSchema={validationSchema}
                 enableReinitialize
                 initialValues={defect}
-                onSubmit={values => console.log(values)}>
-                {({ handleSubmit }) => (
+                onSubmit={values => handleFormSubmit(values)}>
+                {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
+                        <Header content='Title' sub color='teal' />
                         <MyTextInput name='title' placeholder='Title' />
-                        <MyTextInput placeholder='Description' name='description' />
-                        <MyTextInput placeholder='Category' name='category' />
-                        <MyTextInput placeholder='Date' name='date' />
+                        <Header content='Description' sub color='teal' />
+                        <MyTextArea rows={3} placeholder='Description' name='description' />
+                        <Header content='Category' sub color='teal' />
+                        <MyComboBox options={categoryOptions} placeholder='Category' name='category' />
+                        <Header content='Date' sub color='teal' />
+                        <MyDateInput
+                            placeholderText='Date'
+                            name='date'
+                            showTimeSelect
+                            timeCaption='time'
+                            dateFormat='MMMM, d, yyyy h:mm aa'
+                        />
+                        <Header content='Priority' sub color='teal' />
                         <MyTextInput placeholder='Priority' name='priority' />
+                        <Header content='Status' sub color='teal' />
                         <MyTextInput placeholder='Status' name='status' />
-                        <Button loading={loading} floated='right' positive type='submit' content='Submit' />
+                        <Button
+                            disabled={isSubmitting || !dirty || !isValid}
+                            loading={loading}
+                            floated='right'
+                            positive
+                            type='submit'
+                            content='Submit' />
                         <Button as={Link} to='/defects' floated='right' type='button' content='Cancel' />
                     </Form>
                 )}
             </Formik>
 
         </Segment>
+        </>
     )
 })
