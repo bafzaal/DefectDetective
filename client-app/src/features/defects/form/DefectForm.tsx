@@ -14,6 +14,8 @@ import MyComboBox from '../../../app/common/form/MyComboBox';
 import { categoryOptions } from '../../../app/common/options/categoryOptions';
 import MyDateInput from '../../../app/common/form/MyDateInput';
 import { IDefect } from '../../../app/models/defect';
+import { priorityOptions } from '../../../app/common/options/priorityOptions';
+import { statusOptions } from '../../../app/common/options/statusOptions';
 
 export default observer(function DefectForm() {
     const history = useHistory();
@@ -84,9 +86,9 @@ export default observer(function DefectForm() {
                             dateFormat='MMMM, d, yyyy h:mm aa'
                         />
                         <Header content='Priority' sub color='teal' />
-                        <MyTextInput placeholder='Priority' name='priority' />
+                        <MyComboBox options={priorityOptions} placeholder='Priority' name='priority' />
                         <Header content='Status' sub color='teal' />
-                        <MyTextInput placeholder='Status' name='status' />
+                        <MyComboBox options={statusOptions} placeholder='Status' name='status' />
                         <Button
                             disabled={isSubmitting || !dirty || !isValid}
                             loading={loading}
