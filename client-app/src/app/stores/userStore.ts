@@ -1,6 +1,8 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
+import { history } from "../..";
 import agent from "../api/Agent";
 import { IUser, IUserFormValues } from "../models/user";
+import { store } from "./store";
 
 export default class UserStore
 {
@@ -21,11 +23,21 @@ export default class UserStore
         try
         {
             const user = await agent.Account.login(creds);
-            console.log(user);
+            store.commonStore.setToken(user.token);
+            runInAction(() => this.user = user);
+            history.push('/defects');
         }
         catch(error)
         {
             throw error;
         }
+    }
+
+    logout = () =>
+    {
+        store.commonStore.setToken(null);
+        window.localStorage.removeItem('jwt');
+        this.user = null;
+        history.push('/');
     }
 }
