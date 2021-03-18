@@ -6,6 +6,7 @@ interface IProps
 {
     placeholder: string;
     name: string;
+    type?: string;
     label?: string;
 }
 
