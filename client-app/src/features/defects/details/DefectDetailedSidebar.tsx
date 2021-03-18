@@ -14,7 +14,7 @@ export default observer(function DefectDetailedSidebar () {
                 inverted
                 color='teal'
             >
-                3 People Going
+                3 People Investigating
             </Segment>
             <Segment attached>
                 <List relaxed divided>
