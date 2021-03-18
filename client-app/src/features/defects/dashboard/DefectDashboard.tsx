@@ -17,7 +17,7 @@ export default observer(function DefectDashboard()
 
     if(defectStore.loadingInitial)
     {
-        return <LoadingComponent content="Loading App" />
+        return <LoadingComponent content="Loading Defects..." />
     }
 
     return(
