@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -11,5 +12,6 @@ namespace Domain
         public string Category { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
+        public ICollection<DefectWorker> Workers { get; set; }
     }
 }
