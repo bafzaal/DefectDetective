@@ -1,3 +1,4 @@
+using Application.Defects;
 using AutoMapper;
 using Domain;
 
@@ -8,6 +9,7 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<Defect, Defect>();
+            CreateMap<Defect, DefectDto>();
         }
     }
 }
