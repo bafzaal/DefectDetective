@@ -14,6 +14,7 @@ namespace Application.Defects
         public string Priority { get; set; }
         public string Status { get; set; }
         public string OwnerUsername { get; set; }
+        public bool isClosed { get; set; }
         public ICollection<Profile> Workers { get; set; }
     }
 }

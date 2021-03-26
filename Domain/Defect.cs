@@ -12,6 +12,7 @@ namespace Domain
         public string Category { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
+        public bool isClosed { get; set; }
         public ICollection<DefectWorker> Workers { get; set; } = new List<DefectWorker>();
     }
 }
