@@ -7,6 +7,7 @@ using Persistence;
 using Microsoft.EntityFrameworkCore;
 using Application.Core;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace Application.Defects
 {
@@ -27,13 +28,10 @@ namespace Application.Defects
             public async Task<Result<List<DefectDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var defects = await _context.Defects
-                    .Include(w => w.Workers)
-                    .ThenInclude(u => u.AppUser)
+                    .ProjectTo<DefectDto>(_mapper.ConfigurationProvider)
                     .ToListAsync();
                 
-                var defectsToReturn = _mapper.Map<List<DefectDto>>(defects);
-
-                return Result<List<DefectDto>>.Success(defectsToReturn);
+                return Result<List<DefectDto>>.Success(defects);
             }
         }
     }
