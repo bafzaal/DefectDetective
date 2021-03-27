@@ -2,8 +2,13 @@ import React from 'react'
 import { Segment, List, Label, Item, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
+import { IProfile } from '../../../app/models/profile'
 
-export default observer(function DefectDetailedSidebar () {
+interface IProps {
+    workers: IProfile[];
+}
+
+export default observer(function DefectDetailedSidebar({ workers }: IProps) {
     return (
         <>
             <Segment
@@ -14,45 +19,28 @@ export default observer(function DefectDetailedSidebar () {
                 inverted
                 color='teal'
             >
-                3 People Investigating
+                {workers.length} {workers.length === 1 ? 'Worker' : 'Workers'} going
             </Segment>
             <Segment attached>
                 <List relaxed divided>
-                    <Item style={{ position: 'relative' }}>
-                        <Label
-                            style={{ position: 'absolute' }}
-                            color='orange'
-                            ribbon='right'
-                        >
-                            Creator
+                    {workers.map(worker => (
+                        <Item style={{ position: 'relative' }} key={worker.username}>
+                            <Label
+                                style={{ position: 'absolute' }}
+                                color='orange'
+                                ribbon='right'
+                            >
+                                Creator
                         </Label>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Test 1</Link>
-                            </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
-                        </Item.Content>
-                    </Item>
-
-                    <Item style={{ position: 'relative' }}>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Test 2</Link>
-                            </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
-                        </Item.Content>
-                    </Item>
-
-                    <Item style={{ position: 'relative' }}>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Test 3</Link>
-                            </Item.Header>
-                        </Item.Content>
-                    </Item>
+                            <Image size='tiny' src={worker.image || '/assets/user.png'} />
+                            <Item.Content verticalAlign='middle'>
+                                <Item.Header as='h3'>
+                                    <Link to={`/profiles/${worker.username}`}>{worker.displayName}</Link>
+                                </Item.Header>
+                                <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
+                            </Item.Content>
+                        </Item>
+                    ))}
                 </List>
             </Segment>
         </>

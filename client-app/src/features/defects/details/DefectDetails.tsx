@@ -30,7 +30,7 @@ export default observer(function DefectDetails()
                 <DefectDetailedChat />
             </Grid.Column>
             <Grid.Column width={6}>
-                <DefectDetailedSidebar />
+                <DefectDetailedSidebar workers={defect.workers!} />
             </Grid.Column>
         </Grid>
     )
