@@ -1,3 +1,5 @@
+import { IProfile } from "./profile";
+
 export interface IDefect {
     id: string;
     title: string;
@@ -6,4 +8,7 @@ export interface IDefect {
     category: string;
     priority: string;
     status: string;
+    ownerUsername?: string;
+    isClosed?: boolean;
+    workers?: IProfile[]
   }

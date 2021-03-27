@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
 import {format} from 'date-fns';
+import DefectListItemWorker from './DefectListItemWorker';
 
 interface IProps {
     defect: IDefect
@@ -33,7 +34,7 @@ export default function DefectListItem({ defect }: IProps) {
                 </span>
             </Segment>
             <Segment secondary>
-                Workers go here
+                <DefectListItemWorker workers={defect.workers!} />
             </Segment>
             <Segment clearing>
                 <span>{defect.description}</span>
