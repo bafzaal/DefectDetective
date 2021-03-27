@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Icon, Item, Segment } from 'semantic-ui-react';
+import { Button, Icon, Item, Label, Segment } from 'semantic-ui-react';
 import { IDefect } from '../../../app/models/defect';
 import {format} from 'date-fns';
 import DefectListItemWorker from './DefectListItemWorker';
@@ -21,7 +21,21 @@ export default function DefectListItem({ defect }: IProps) {
                             <Item.Header as={Link} to={`/defects/${defect.id}`}>
                                 {defect.title}
                             </Item.Header>
-                        <Item.Description>Hosted by Bilal</Item.Description>
+                        <Item.Description>Hosted by {defect.owner?.displayName}</Item.Description>
+                        {defect.isOwner && (
+                            <Item.Description>
+                                <Label basic color='orange'>
+                                    You are the owner of this Defect
+                                </Label>
+                            </Item.Description>
+                        )}
+                        {defect.isGoing && !defect.isOwner && (
+                            <Item.Description>
+                                <Label basic color='green'>
+                                    You are working on this Defect
+                                </Label>
+                            </Item.Description>
+                        )}
                         </Item.Content>
                     </Item>
                 </Item.Group>

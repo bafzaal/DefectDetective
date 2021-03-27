@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/Agent";
 import { IDefect } from "../models/defect";
 import {format} from 'date-fns';
+import { store } from "./store";
 
 export default class DefectStore
 {
@@ -80,6 +81,15 @@ export default class DefectStore
 
     private setDefect = (defect: IDefect) =>
     {
+        const user = store.userStore.user;
+        if(user)
+        {
+            defect.isGoing = defect.workers!.some(
+                d => d.username === user.username
+            )
+            defect.isOwner = defect.ownerUsername === user.username;
+            defect.owner = defect.workers?.find(x => x.username === defect.ownerUsername);
+        }
         defect.date = new Date(defect.date!);
         this.defectRegistry.set(defect.id, defect);
     }
