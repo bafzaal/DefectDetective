@@ -1,7 +1,9 @@
 using System.Text;
 using API.Services;
 using Domain;
+using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +36,15 @@ namespace API.Extensions
                         ValidateAudience = false
                     };
                 });
+            
+            services.AddAuthorization(opt => 
+            {
+                opt.AddPolicy("IsDefectOwner", policy => 
+                {
+                    policy.Requirements.Add(new IsOwnerRequirement());
+                });
+            });
+            services.AddTransient<IAuthorizationHandler, IsOwnerRequirementHandler>();
             services.AddScoped<TokenService>();
 
             return services;

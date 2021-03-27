@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Application.Defects;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -26,6 +27,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Create.Command{Defect = defect}));
         }
 
+        [Authorize(Policy = "IsDefectOwner")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditDefect(Guid id, Defect defect)
         {
@@ -33,6 +35,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command{Defect = defect}));
         }
 
+        [Authorize(Policy = "IsDefectOwner")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDefect(Guid id)
         {
