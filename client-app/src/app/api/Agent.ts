@@ -77,7 +77,8 @@ const Defects = {
     details: (id: string) => requests.get<IDefect>(`/defects/${id}`),
     create: (defect: IDefect) => requests.post<void>('/defects', defect),
     update: (defect: IDefect) => requests.put<void>(`/defects/${defect.id}`, defect),
-    delete: (id: string) => requests.del<void>(`/defects/${id}`)
+    delete: (id: string) => requests.del<void>(`/defects/${id}`),
+    work: (id: string) => requests.post<void>(`/defects/${id}/work`, {})
 }
 
 const Account = {

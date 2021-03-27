@@ -3,6 +3,7 @@ import agent from "../api/Agent";
 import { IDefect } from "../models/defect";
 import {format} from 'date-fns';
 import { store } from "./store";
+import { IProfile } from "../models/profile";
 
 export default class DefectStore
 {
@@ -166,6 +167,38 @@ export default class DefectStore
             runInAction(() => {
                 this.loading = false;
             })
+        }
+    }
+
+    updateWorkers = async () => 
+    {
+        const user = store.userStore.user;
+        this.loading = true;
+        try
+        {
+            await agent.Defects.work(this.selectedDefect!.id);
+            runInAction(() => {
+                if(this.selectedDefect?.isGoing)
+                {
+                    this.selectedDefect.workers = this.selectedDefect.workers?.filter(d => d.username !== user?.username);
+                    this.selectedDefect.isGoing = false;
+                }
+                else
+                {
+                    const worker = new IProfile(user!);
+                    this.selectedDefect?.workers?.push(worker);
+                    this.selectedDefect!.isGoing = true;
+                }
+                this.defectRegistry.set(this.selectedDefect!.id, this.selectedDefect!);
+            })
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+        finally
+        {
+            runInAction(() => this.loading = false)
         }
     }
 }

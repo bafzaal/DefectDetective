@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Header, Item, Segment, Image } from 'semantic-ui-react'
 import { IDefect } from "../../../app/models/defect";
 import { format } from 'date-fns';
+import { useStore } from '../../../app/stores/store';
 
 const defectImageStyle = {
     filter: 'brightness(30%)'
@@ -23,6 +24,7 @@ interface IProps {
 }
 
 export default observer(function DefectDetailedHeader({ defect }: IProps) {
+    const {defectStore: {updateWorkers, loading}} = useStore();
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{ padding: '0' }}>
@@ -51,9 +53,9 @@ export default observer(function DefectDetailedHeader({ defect }: IProps) {
                         Manage Defect
                     </Button>
                 ) : defect.isGoing ? (
-                    <Button>Cancel Work</Button>
+                    <Button loading={loading} onClick={updateWorkers}>Cancel Work</Button>
                 ) : (
-                    <Button color='teal'>Work on Defect</Button>
+                    <Button loading={loading} onClick={updateWorkers} color='teal'>Work on Defect</Button>
                 )}
             </Segment>
         </Segment.Group>
