@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Infrastructure.Security
@@ -33,7 +34,10 @@ namespace Infrastructure.Security
             var defectId = Guid.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues
                 .SingleOrDefault(x => x.Key == "id").Value?.ToString());
 
-            var worker = _dbContext.DefectWorkers.FindAsync(userId, defectId).Result;
+            var worker = _dbContext.DefectWorkers
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.AppUserId == userId && x.DefectId == defectId)
+                .Result;
 
             if(worker == null) return Task.CompletedTask;
 
