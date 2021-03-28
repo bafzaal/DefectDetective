@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Button, Header, Item, Segment, Image } from 'semantic-ui-react'
+import { Button, Header, Item, Segment, Image, Label } from 'semantic-ui-react'
 import { IDefect } from "../../../app/models/defect";
 import { format } from 'date-fns';
 import { useStore } from '../../../app/stores/store';
@@ -24,10 +24,14 @@ interface IProps {
 }
 
 export default observer(function DefectDetailedHeader({ defect }: IProps) {
-    const {defectStore: {updateWorkers, loading}} = useStore();
+    const { defectStore: { updateWorkers, loading, cancelDefectToggle } } = useStore();
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{ padding: '0' }}>
+                {defect.isClosed &&
+                    <Label style={{ position: 'absolute', zIndex: 1000, left: -14, top: 20 }}
+                        ribbon color='red' content='Closed' />
+                }
                 <Image src={`/assets/categoryImages/${defect.category}.jpg`} fluid style={defectImageStyle} />
                 <Segment style={defectImageTextStyle} basic>
                     <Item.Group>
@@ -49,13 +53,25 @@ export default observer(function DefectDetailedHeader({ defect }: IProps) {
             </Segment>
             <Segment clearing attached='bottom'>
                 {defect.isOwner ? (
-                    <Button as={Link} to={`/manage/${defect.id}`} color='orange' floated='right'>
-                        Manage Defect
-                    </Button>
-                ) : defect.isGoing ? (
+                    <>
+                        <Button 
+                            color={defect.isClosed ? 'green' : 'red'}
+                            floated='left' basic
+                            content={defect.isClosed ? 'Re-Open Defect' : 'Close Defect'}
+                            onClick={cancelDefectToggle}
+                            loading={loading}
+                        />
+                        <Button as={Link} 
+                            disabled={defect.isClosed}
+                            to={`/manage/${defect.id}`} 
+                            color='orange' floated='right'>
+                            Manage Defect
+                        </Button>
+                    </>
+                ) : defect.isWorking ? (
                     <Button loading={loading} onClick={updateWorkers}>Cancel Work</Button>
                 ) : (
-                    <Button loading={loading} onClick={updateWorkers} color='teal'>Work on Defect</Button>
+                    <Button disabled={defect.isClosed} loading={loading} onClick={updateWorkers} color='teal'>Work on Defect</Button>
                 )}
             </Segment>
         </Segment.Group>

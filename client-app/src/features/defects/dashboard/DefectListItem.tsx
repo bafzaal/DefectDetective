@@ -14,6 +14,9 @@ export default function DefectListItem({ defect }: IProps) {
     return (
         <Segment.Group>
             <Segment>
+                {defect.isClosed && 
+                    <Label attached='top' color='red' content='Closed' style={{textAlign: 'center'}} />
+                }
                 <Item.Group>
                     <Item>
                         <Item.Image size='tiny' circular src='/assets/user.png' />
@@ -29,7 +32,7 @@ export default function DefectListItem({ defect }: IProps) {
                                 </Label>
                             </Item.Description>
                         )}
-                        {defect.isGoing && !defect.isOwner && (
+                        {defect.isWorking && !defect.isOwner && (
                             <Item.Description>
                                 <Label basic color='green'>
                                     You are working on this Defect

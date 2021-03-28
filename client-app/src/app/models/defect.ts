@@ -10,7 +10,7 @@ export interface IDefect {
     status: string;
     ownerUsername: string;
     isClosed: boolean;
-    isGoing: boolean;
+    isWorking: boolean;
     isOwner: boolean;
     owner?: IProfile;
     workers: IProfile[]

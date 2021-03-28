@@ -85,7 +85,7 @@ export default class DefectStore
         const user = store.userStore.user;
         if(user)
         {
-            defect.isGoing = defect.workers!.some(
+            defect.isWorking = defect.workers!.some(
                 d => d.username === user.username
             )
             defect.isOwner = defect.ownerUsername === user.username;
@@ -175,16 +175,16 @@ export default class DefectStore
         {
             await agent.Defects.work(this.selectedDefect!.id);
             runInAction(() => {
-                if(this.selectedDefect?.isGoing)
+                if(this.selectedDefect?.isWorking)
                 {
                     this.selectedDefect.workers = this.selectedDefect.workers?.filter(d => d.username !== user?.username);
-                    this.selectedDefect.isGoing = false;
+                    this.selectedDefect.isWorking = false;
                 }
                 else
                 {
                     const worker = new IProfile(user!);
                     this.selectedDefect?.workers?.push(worker);
-                    this.selectedDefect!.isGoing = true;
+                    this.selectedDefect!.isWorking = true;
                 }
                 this.defectRegistry.set(this.selectedDefect!.id, this.selectedDefect!);
             })
@@ -196,6 +196,27 @@ export default class DefectStore
         finally
         {
             runInAction(() => this.loading = false)
+        }
+    }
+
+    cancelDefectToggle = async () =>
+    {
+        this.loading = true;
+        try
+        {
+            await agent.Defects.work(this.selectedDefect!.id);
+            runInAction(() => {
+                this.selectedDefect!.isClosed = !this.selectedDefect?.isClosed;
+                this.defectRegistry.set(this.selectedDefect!.id, this.selectedDefect!);
+            })
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+        finally
+        {
+            runInAction(() => this.loading = false);
         }
     }
 }
