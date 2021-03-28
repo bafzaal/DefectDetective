@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/Agent";
-import { IDefect } from "../models/defect";
+import { DefectFormValues, IDefect } from "../models/defect";
 import {format} from 'date-fns';
 import { store } from "./store";
 import { IProfile } from "../models/profile";
@@ -105,48 +105,45 @@ export default class DefectStore
         this.loadingInitial = state;
     }
 
-    createDefect = async (defect: IDefect) =>
+    createDefect = async (defect: DefectFormValues) =>
     {
-        this.loading = true;
+        const user = store.userStore.user;
+        const worker = new IProfile(user!);
         try
         {
             await agent.Defects.create(defect);
+            const newDefect = new IDefect(defect);
+            newDefect.ownerUsername = user!.username;
+            newDefect.workers = [worker];
+            this.setDefect(newDefect);
             runInAction(() => {
-                this.defectRegistry.set(defect.id, defect);
-                this.selectedDefect = defect;
-                this.editMode = false;
-                this.loading = false;
+                this.selectedDefect = newDefect;
             })
         }
         catch(error)
         {
             console.log(error);
-            runInAction(() => {
-                this.loading = false;
-            })
         }
     }
 
-    updateDefect = async (defect: IDefect) =>
+    updateDefect = async (defect: DefectFormValues) =>
     {
-        this.loading = true;
         try
         {
             await agent.Defects.update(defect);
             runInAction(() => {
-                this.defectRegistry.set(defect.id, defect);
-                this.selectedDefect = defect;
-                this.editMode = false;
-                this.loading = false;
+                if(defect.id)
+                {
+                    let updatedDefect = {...this.getDefect(defect.id), ...defect}
+                    this.defectRegistry.set(defect.id, updatedDefect as IDefect);
+                    this.selectedDefect = updatedDefect as IDefect;
+                }
             })
         }
         catch(error)
         {
             console.log(error);
             this.loading = false;
-            runInAction(() => {
-                this.loading = false;
-            })
         }
     }
 

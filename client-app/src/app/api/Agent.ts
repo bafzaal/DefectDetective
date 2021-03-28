@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
-import { IDefect } from '../models/defect';
+import { DefectFormValues, IDefect } from '../models/defect';
 import { IUser, IUserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -75,8 +75,8 @@ const requests = {
 const Defects = {
     list: () => requests.get<IDefect[]>('/defects'),
     details: (id: string) => requests.get<IDefect>(`/defects/${id}`),
-    create: (defect: IDefect) => requests.post<void>('/defects', defect),
-    update: (defect: IDefect) => requests.put<void>(`/defects/${defect.id}`, defect),
+    create: (defect: DefectFormValues) => requests.post<void>('/defects', defect),
+    update: (defect: DefectFormValues) => requests.put<void>(`/defects/${defect.id}`, defect),
     delete: (id: string) => requests.del<void>(`/defects/${id}`),
     work: (id: string) => requests.post<void>(`/defects/${id}/work`, {})
 }

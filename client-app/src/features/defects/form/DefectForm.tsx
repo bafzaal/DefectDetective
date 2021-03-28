@@ -13,7 +13,7 @@ import MyTextArea from '../../../app/common/form/MyTextArea';
 import MyComboBox from '../../../app/common/form/MyComboBox';
 import { categoryOptions } from '../../../app/common/options/categoryOptions';
 import MyDateInput from '../../../app/common/form/MyDateInput';
-import { IDefect } from '../../../app/models/defect';
+import { DefectFormValues, IDefect } from '../../../app/models/defect';
 import { priorityOptions } from '../../../app/common/options/priorityOptions';
 import { statusOptions } from '../../../app/common/options/statusOptions';
 
@@ -22,15 +22,7 @@ export default observer(function DefectForm() {
     const { defectStore } = useStore();
     const { createDefect, updateDefect, loading, loadDefect, loadingInitial } = defectStore;
     const { id } = useParams<{ id: string }>();
-    const [defect, setDefect] = useState<IDefect>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: null,
-        priority: '',
-        status: ''
-    });
+    const [defect, setDefect] = useState<DefectFormValues>(new DefectFormValues());
 
     const validationSchema = Yup.object({
         title: Yup.string().required('The defect title is required'),
@@ -42,11 +34,11 @@ export default observer(function DefectForm() {
     })
 
     useEffect(() => {
-        if (id) loadDefect(id).then(defect => setDefect(defect!))
+        if (id) loadDefect(id).then(defect => setDefect(new DefectFormValues(defect)))
     }, [id, loadDefect]);
 
-    function handleFormSubmit(defect: IDefect) {
-        if (defect.id.length === 0) {
+    function handleFormSubmit(defect: DefectFormValues) {
+        if (!defect.id) {
             let newDefect = {
                 ...defect,
                 id: uuid()
@@ -91,7 +83,7 @@ export default observer(function DefectForm() {
                         <MyComboBox options={statusOptions} placeholder='Status' name='status' />
                         <Button
                             disabled={isSubmitting || !dirty || !isValid}
-                            loading={loading}
+                            loading={isSubmitting}
                             floated='right'
                             positive
                             type='submit'
