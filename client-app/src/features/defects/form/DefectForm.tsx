@@ -13,14 +13,14 @@ import MyTextArea from '../../../app/common/form/MyTextArea';
 import MyComboBox from '../../../app/common/form/MyComboBox';
 import { categoryOptions } from '../../../app/common/options/categoryOptions';
 import MyDateInput from '../../../app/common/form/MyDateInput';
-import { DefectFormValues, IDefect } from '../../../app/models/defect';
+import { DefectFormValues } from '../../../app/models/defect';
 import { priorityOptions } from '../../../app/common/options/priorityOptions';
 import { statusOptions } from '../../../app/common/options/statusOptions';
 
 export default observer(function DefectForm() {
     const history = useHistory();
     const { defectStore } = useStore();
-    const { createDefect, updateDefect, loading, loadDefect, loadingInitial } = defectStore;
+    const { createDefect, updateDefect, loadDefect, loadingInitial } = defectStore;
     const { id } = useParams<{ id: string }>();
     const [defect, setDefect] = useState<DefectFormValues>(new DefectFormValues());
 
