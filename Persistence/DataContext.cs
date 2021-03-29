@@ -13,6 +13,7 @@ namespace Persistence
 
         public DbSet<Defect> Defects { get; set; }
         public DbSet<DefectWorker> DefectWorkers { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
