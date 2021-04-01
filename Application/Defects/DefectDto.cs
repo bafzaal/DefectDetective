@@ -15,6 +15,6 @@ namespace Application.Defects
         public string Status { get; set; }
         public string OwnerUsername { get; set; }
         public bool isClosed { get; set; }
-        public ICollection<Profile> Workers { get; set; }
+        public ICollection<WorkerDto> Workers { get; set; }
     }
 }
