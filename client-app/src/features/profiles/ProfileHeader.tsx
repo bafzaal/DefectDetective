@@ -1,7 +1,14 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic } from 'semantic-ui-react';
+import { IProfile } from '../../app/models/profile';
 
-export default function ProfileHeader()
+interface IProps
+{
+    profile: IProfile;
+}
+
+export default observer(function ProfileHeader({profile}: IProps)
 {
     return(
         <Segment>
@@ -9,9 +16,9 @@ export default function ProfileHeader()
                 <Grid.Column width={12}>
                     <Item.Group>
                         <Item>
-                            <Item.Image avatar size='small' src={'/assets/user.png'} />
+                            <Item.Image avatar size='small' src={profile.image || '/assets/user.png'} />
                             <Item.Content verticalAlign='middle'>
-                                <Header as='h1' content='Displayname' />
+                                <Header as='h1' content={profile.displayName} />
                             </Item.Content>
                         </Item>
                     </Item.Group>
@@ -39,4 +46,4 @@ export default function ProfileHeader()
             </Grid>
         </Segment>
     )
-}
+})
