@@ -19,12 +19,12 @@ export default function DefectListItem({ defect }: IProps) {
                 }
                 <Item.Group>
                     <Item>
-                        <Item.Image style={{marginBottom: 3}} size='tiny' circular src='/assets/user.png' />
+                        <Item.Image style={{marginBottom: 3}} size='tiny' circular src={defect.owner?.image || '/assets/user.png'} />
                         <Item.Content>
                             <Item.Header as={Link} to={`/defects/${defect.id}`}>
                                 {defect.title}
                             </Item.Header>
-                        <Item.Description>Hosted by {defect.owner?.displayName}</Item.Description>
+                        <Item.Description>Hosted by <Link to={`/profiles/${defect.ownerUsername}`}>{defect.owner?.displayName}</Link></Item.Description>
                         {defect.isOwner && (
                             <Item.Description>
                                 <Label basic color='orange'>
