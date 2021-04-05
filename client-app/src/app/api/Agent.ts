@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { DefectFormValues, IDefect } from '../models/defect';
+import { IProfile } from '../models/profile';
 import { IUser, IUserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -87,8 +88,12 @@ const Account = {
     register: (user: IUserFormValues) => requests.post<IUser>('/account/register', user)
 }
 
+const Profiles = {
+    get: (username: string) => requests.get<IProfile>(`/profiles/${username}`)
+}
+
 const agent = {
-    Defects, Account
+    Defects, Account, Profiles
 }
 
 export default agent;
