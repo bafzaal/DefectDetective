@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { DefectFormValues, IDefect } from '../models/defect';
-import { IProfile } from '../models/profile';
+import { IPhoto, IProfile } from '../models/profile';
 import { IUser, IUserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -89,7 +89,14 @@ const Account = {
 }
 
 const Profiles = {
-    get: (username: string) => requests.get<IProfile>(`/profiles/${username}`)
+    get: (username: string) => requests.get<IProfile>(`/profiles/${username}`),
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<IPhoto>('photos', formData, {
+            headers: {'Content-type': 'multipart/form-data'}
+        });
+    }
 }
 
 const agent = {

@@ -10,8 +10,14 @@ interface IProps {
 }
 
 export default observer(function ProfilePhotos({ profile }: IProps) {
-    const { profileStore: { isCurrentUser } } = useStore();
+    const { profileStore: { isCurrentUser, uploadPhoto, uploading } } = useStore();
     const [addPhotomode, setAddPhotoMode] = useState(false);
+
+    function handlePhotoUpload(file: Blob)
+    {
+        uploadPhoto(file).then(() => setAddPhotoMode(false));
+    }
+
     return (
         <Tab.Pane>
             <Grid>
@@ -26,7 +32,7 @@ export default observer(function ProfilePhotos({ profile }: IProps) {
                 </Grid.Column>
                 <Grid.Column width={16}>
                     {addPhotomode ? (
-                        <PhotoUploadWidget />
+                        <PhotoUploadWidget uploadPhoto={handlePhotoUpload} loading={uploading} />
                     ) : (
                         <Card.Group itemsPerRow={5}>
                             {profile.photos?.map(photo => (
