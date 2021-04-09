@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/Agent";
-import { IProfile } from "../models/profile";
+import { IPhoto, IProfile } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore
@@ -8,6 +8,7 @@ export default class ProfileStore
     profile: IProfile | null = null;
     loadingProfile = false;
     uploading = false;
+    loading = false;
 
     constructor()
     {
@@ -65,6 +66,30 @@ export default class ProfileStore
         {
             console.log(error);
             runInAction(() => this.uploading = false);
+        }
+    }
+
+    setMainPhoto = async (photo: IPhoto) =>
+    {
+        this.loading = true;
+        try
+        {
+            await agent.Profiles.setMainPhoto(photo.id);
+            store.userStore.setImage(photo.url);
+            runInAction(() => {
+                if(this.profile && this.profile.photos)
+                {
+                    this.profile.photos.find(p => p.isMain)!.isMain = false;
+                    this.profile.photos.find(p => p.id === photo.id)!.isMain = true;
+                    this.profile.image = photo.url;
+                    this.loading = false;
+                }
+            })
+        }
+        catch(error)
+        {
+            runInAction(() => this.loading = false);
+            console.log(error);
         }
     }
 }
