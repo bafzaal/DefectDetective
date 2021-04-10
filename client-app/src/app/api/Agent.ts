@@ -16,7 +16,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
-    if(token) config.headers.Authorization = `Bearer ${token}`
+    if (token) config.headers.Authorization = `Bearer ${token}`
     return config;
 })
 
@@ -24,25 +24,19 @@ axios.interceptors.response.use(async response => {
     await sleep(1000);
     return response;
 }, (error: AxiosError) => {
-    const {data, status, config} = error.response!;
-    switch(status)
-    {
-        case 400: 
-            if(typeof data === 'string')
-            {
+    const { data, status, config } = error.response!;
+    switch (status) {
+        case 400:
+            if (typeof data === 'string') {
                 toast.error(data);
             }
-            if(config.method === 'get' && data.errors.hasOwnProperty('id'))
-            {
+            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
                 history.push('/not-found');
             }
-            if(data.errors)
-            {
+            if (data.errors) {
                 const modalStateErrors = [];
-                for (const key in data.errors)
-                {
-                    if(data.errors[key])
-                    {
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
                         modalStateErrors.push(data.errors[key]);
                     }
                 }
@@ -94,11 +88,12 @@ const Profiles = {
         let formData = new FormData();
         formData.append('File', file);
         return axios.post<IPhoto>('photos', formData, {
-            headers: {'Content-type': 'multipart/form-data'}
+            headers: { 'Content-type': 'multipart/form-data' }
         });
     },
     setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
-    deletePhoto: (id: string) => requests.del(`/photos/${id}`)
+    deletePhoto: (id: string) => requests.del(`/photos/${id}`),
+    updateProfile: (profile: Partial<IProfile>) => { requests.put('profiles', profile) }
 }
 
 const agent = {
