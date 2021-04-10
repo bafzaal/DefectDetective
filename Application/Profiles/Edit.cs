@@ -15,8 +15,8 @@ namespace Application.Profiles
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public string DisplayName;
-            public string Bio;
+            public string DisplayName { get; set; }
+            public string Bio { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -43,15 +43,13 @@ namespace Application.Profiles
             {
                 var username = _userAccessor.GetUsername();
 
-                var user = await _context.Users
-                    .ProjectTo<Profile>(_mapper.ConfigurationProvider)
-                    .SingleOrDefaultAsync(x => x.Username == username);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
 
-                user.DisplayName = request.DisplayName;
-                user.Bio = request.DisplayName;
+                user.Bio = request.Bio ?? user.Bio;
+                user.DisplayName = request.DisplayName ?? user.DisplayName;
 
                 var result = await _context.SaveChangesAsync() > 0;
-                if(!result) return Result<Unit>.Failure("Failed to update profile");
+                if (!result) return Result<Unit>.Failure("Failed to update profile");
                 return Result<Unit>.Success(Unit.Value);
             }
         }
