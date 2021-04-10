@@ -33,7 +33,6 @@ namespace Application.Defects
             {
                 _userAccessor = userAccessor;
                 _context = context;
-
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)

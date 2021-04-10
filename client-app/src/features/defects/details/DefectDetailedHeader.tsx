@@ -19,7 +19,8 @@ const defectImageTextStyle = {
     color: 'white'
 };
 
-interface IProps {
+interface IProps 
+{
     defect: IDefect
 }
 

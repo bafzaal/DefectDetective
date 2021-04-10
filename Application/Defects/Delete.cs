@@ -26,8 +26,6 @@ namespace Application.Defects
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var defect = await _context.Defects.FindAsync(request.Id);
-
-                // if (defect == null) return null;
                 
                 _context.Remove(defect);
 
