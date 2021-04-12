@@ -14,5 +14,6 @@ namespace Domain
         public string Status { get; set; }
         public bool isClosed { get; set; }
         public ICollection<DefectWorker> Workers { get; set; } = new List<DefectWorker>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

@@ -14,6 +14,7 @@ namespace Persistence
         public DbSet<Defect> Defects { get; set; }
         public DbSet<DefectWorker> DefectWorkers { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +31,11 @@ namespace Persistence
                 .HasOne(u => u.Defect)
                 .WithMany(a => a.Workers)
                 .HasForeignKey(aa => aa.DefectId);
+
+            builder.Entity<Comment>()
+                .HasOne(d => d.Defect)
+                .WithMany(c => c.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
