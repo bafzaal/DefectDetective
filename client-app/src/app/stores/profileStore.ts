@@ -3,58 +3,47 @@ import agent from "../api/Agent";
 import { IPhoto, IProfile } from "../models/profile";
 import { store } from "./store";
 
-export default class ProfileStore
-{
+export default class ProfileStore {
     profile: IProfile | null = null;
     loadingProfile = false;
     uploading = false;
     loading = false;
 
-    constructor()
-    {
+    constructor() {
         makeAutoObservable(this);
     }
 
-    get isCurrentUser()
-    {
-        if(store.userStore.user && this.profile)
-        {
+    get isCurrentUser() {
+        if (store.userStore.user && this.profile) {
             return store.userStore.user.username === this.profile.username;
         }
         return false;
     }
 
-    loadProfile = async (username: string) => 
-    {
+    loadProfile = async (username: string) => {
         this.loadingProfile = true;
-        try
-        {
+        try {
             const profile = await agent.Profiles.get(username);
             runInAction(() => {
                 this.profile = profile;
                 this.loadingProfile = false;
             });
         }
-        catch(error)
-        {
+        catch (error) {
             console.log(error);
             runInAction(() => this.loadingProfile = false);
         }
     }
 
-    uploadPhoto = async (file: Blob) =>
-    {
+    uploadPhoto = async (file: Blob) => {
         this.uploading = true;
-        try
-        {
+        try {
             const response = await agent.Profiles.uploadPhoto(file);
             const photo = response.data;
             runInAction(() => {
-                if (this.profile)
-                {
+                if (this.profile) {
                     this.profile.photos?.push(photo);
-                    if(photo.isMain && store.userStore.user)
-                    {
+                    if (photo.isMain && store.userStore.user) {
                         store.userStore.setImage(photo.url);
                         this.profile.image = photo.url;
                     }
@@ -62,23 +51,19 @@ export default class ProfileStore
                 this.uploading = false;
             })
         }
-        catch(error)
-        {
+        catch (error) {
             console.log(error);
             runInAction(() => this.uploading = false);
         }
     }
 
-    setMainPhoto = async (photo: IPhoto) =>
-    {
+    setMainPhoto = async (photo: IPhoto) => {
         this.loading = true;
-        try
-        {
+        try {
             await agent.Profiles.setMainPhoto(photo.id);
             store.userStore.setImage(photo.url);
             runInAction(() => {
-                if(this.profile && this.profile.photos)
-                {
+                if (this.profile && this.profile.photos) {
                     this.profile.photos.find(p => p.isMain)!.isMain = false;
                     this.profile.photos.find(p => p.id === photo.id)!.isMain = true;
                     this.profile.image = photo.url;
@@ -86,29 +71,43 @@ export default class ProfileStore
                 }
             })
         }
-        catch(error)
-        {
+        catch (error) {
             runInAction(() => this.loading = false);
             console.log(error);
         }
     }
 
-    deletePhoto = async (photo: IPhoto) =>
-    {
+    deletePhoto = async (photo: IPhoto) => {
         this.loading = true;
-        try
-        {
+        try {
             await agent.Profiles.deletePhoto(photo.id);
             runInAction(() => {
-                if(this.profile)
-                {
+                if (this.profile) {
                     this.profile.photos = this.profile.photos?.filter(p => p.id !== photo.id);
                     this.loading = false;
                 }
             })
         }
-        catch(error)
-        {
+        catch (error) {
+            runInAction(() => this.loading = false);
+            console.log(error);
+        }
+    }
+
+    updateProfile = async (profile: Partial<IProfile>) => {
+        this.loading = true;
+        try {
+            await agent.Profiles.updateProfile(profile);
+            runInAction(() => {
+                if (profile.displayName && profile.displayName !== store.userStore.user?.displayName) 
+                {
+                    store.userStore.setDisplayName(profile.displayName);
+                }
+                this.profile = { ...this.profile, ...profile as IProfile };
+                this.loading = false;
+            })
+        }
+        catch (error) {
             runInAction(() => this.loading = false);
             console.log(error);
         }
