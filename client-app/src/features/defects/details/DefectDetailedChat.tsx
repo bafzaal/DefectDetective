@@ -1,8 +1,25 @@
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import {Segment, Header, Comment, Form, Button} from 'semantic-ui-react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Segment, Header, Comment, Form, Button } from 'semantic-ui-react'
+import { useStore } from '../../../app/stores/store'
 
-export default observer(function DefectDetailedChat() {
+interface IProps {
+    defectId: string;
+}
+
+export default observer(function DefectDetailedChat({ defectId }: IProps) {
+    const { commentStore } = useStore();
+
+    useEffect(() => {
+        if (defectId) {
+            commentStore.createHubConnection(defectId);
+        }
+        return () => {
+            commentStore.clearComments();
+        }
+    }, [commentStore, defectId])
+
     return (
         <>
             <Segment
@@ -10,42 +27,27 @@ export default observer(function DefectDetailedChat() {
                 attached='top'
                 inverted
                 color='teal'
-                style={{border: 'none'}}
+                style={{ border: 'none' }}
             >
                 <Header>Chat about this event</Header>
             </Segment>
             <Segment attached>
                 <Comment.Group>
-                    <Comment>
-                        <Comment.Avatar src='/assets/user.png'/>
-                        <Comment.Content>
-                            <Comment.Author as='a'>Test Person 1</Comment.Author>
-                            <Comment.Metadata>
-                                <div>Today at 5:42PM</div>
-                            </Comment.Metadata>
-                            <Comment.Text>I can't reproduce the issue.</Comment.Text>
-                            <Comment.Actions>
-                                <Comment.Action>Reply</Comment.Action>
-                            </Comment.Actions>
-                        </Comment.Content>
-                    </Comment>
-
-                    <Comment>
-                        <Comment.Avatar src='/assets/user.png'/>
-                        <Comment.Content>
-                            <Comment.Author as='a'>Test Person 2</Comment.Author>
-                            <Comment.Metadata>
-                                <div>5 days ago</div>
-                            </Comment.Metadata>
-                            <Comment.Text>I will look into this.</Comment.Text>
-                            <Comment.Actions>
-                                <Comment.Action>Reply</Comment.Action>
-                            </Comment.Actions>
-                        </Comment.Content>
-                    </Comment>
+                    {commentStore.comments.map(comment => (
+                        <Comment key={comment.id}>
+                            <Comment.Avatar src={comment.image || '/assets/user.png'} />
+                            <Comment.Content>
+                                <Comment.Author as={Link} to={`/profiles/${comment.username}`}>{comment.displayName}</Comment.Author>
+                                <Comment.Metadata>
+                                    <div>{comment.createdAt}</div>
+                                </Comment.Metadata>
+                                <Comment.Text>{comment.body}</Comment.Text>
+                            </Comment.Content>
+                        </Comment>
+                    ))}
 
                     <Form reply>
-                        <Form.TextArea/>
+                        <Form.TextArea />
                         <Button
                             content='Add Reply'
                             labelPosition='left'

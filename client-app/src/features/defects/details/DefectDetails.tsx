@@ -27,7 +27,7 @@ export default observer(function DefectDetails()
             <Grid.Column width={10}>
                 <DefectDetailedHeader defect={defect} />
                 <DefectDetailedInfo defect={defect} />
-                <DefectDetailedChat />
+                <DefectDetailedChat defectId={defect.id} />
             </Grid.Column>
             <Grid.Column width={6}>
                 <DefectDetailedSidebar defect={defect} />
