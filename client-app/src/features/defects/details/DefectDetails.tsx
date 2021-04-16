@@ -13,12 +13,13 @@ export default observer(function DefectDetails()
 {
 
     const {defectStore} = useStore();
-    const {selectedDefect: defect, loadDefect, loadingInitial} = defectStore;
+    const {selectedDefect: defect, loadDefect, loadingInitial, clearSelectedDefect} = defectStore;
     const {id} = useParams<{id: string}>();
 
     useEffect(() => {
         if(id) loadDefect(id);
-    }, [id, loadDefect]);
+        return () => clearSelectedDefect();
+    }, [id, loadDefect, clearSelectedDefect]);
 
     if(loadingInitial || !defect) return <LoadingComponent />;
 

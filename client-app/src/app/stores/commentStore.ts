@@ -28,11 +28,19 @@ export default class CommentStore
             this.hubConnection.start().catch(error => console.log('Error establishing the connection: ', error));
 
             this.hubConnection.on('LoadComments', (comments: IChatComment[]) => {
-                runInAction(() => this.comments = comments);
+                runInAction(() => {
+                    comments.forEach(comment => {
+                        comment.createdAt = new Date(comment.createdAt + 'Z');
+                    })
+                    this.comments = comments
+                });
             })
 
             this.hubConnection.on('ReceiveComment', (comment: IChatComment) => {
-                runInAction(() => this.comments.push(comment));
+                runInAction(() => {
+                    comment.createdAt = new Date(comment.createdAt);
+                    this.comments.unshift(comment)
+                });
             })
         }
     }

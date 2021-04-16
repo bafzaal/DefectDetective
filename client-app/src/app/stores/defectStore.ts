@@ -219,4 +219,9 @@ export default class DefectStore
             runInAction(() => this.loading = false);
         }
     }
+
+    clearSelectedDefect = () => 
+    {
+        this.selectedDefect = undefined;
+    }
 }
