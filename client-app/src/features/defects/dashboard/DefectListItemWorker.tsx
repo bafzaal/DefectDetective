@@ -10,6 +10,12 @@ interface IProps {
 }
 
 export default observer(function DefectListItemWorker({ workers }: IProps) {
+    const styles =
+    {
+        borderColor: 'orange',
+        borderWidth: 2
+    }
+
     return (
         <List horizontal>
             {workers.map(worker => (
@@ -17,7 +23,11 @@ export default observer(function DefectListItemWorker({ workers }: IProps) {
                     hoverable key={worker.username}
                     trigger={
                         <List.Item key={worker.username} as={Link} to={`/profiles/${worker.username}`}>
-                            <Image size='mini' circular src={worker.image || '/assets/user.png'} />
+                            <Image 
+                                size='mini' 
+                                circular src={worker.image || '/assets/user.png'} 
+                                bordered style={worker.following ? styles : null}
+                            />
                         </List.Item>
                     }
                 >

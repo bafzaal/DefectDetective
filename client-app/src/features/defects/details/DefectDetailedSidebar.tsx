@@ -39,7 +39,8 @@ export default observer(function DefectDetailedSidebar({ defect: { workers, owne
                                 <Item.Header as='h3'>
                                     <Link to={`/profiles/${worker.username}`}>{worker.displayName}</Link>
                                 </Item.Header>
-                                <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
+                                {worker.following && 
+                                <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>}
                             </Item.Content>
                         </Item>
                     ))}
