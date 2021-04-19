@@ -13,7 +13,7 @@ export default observer(function DefectListItemWorker({ workers }: IProps) {
     const styles =
     {
         borderColor: 'orange',
-        borderWidth: 2
+        borderWidth: 3
     }
 
     return (
