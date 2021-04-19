@@ -224,4 +224,17 @@ export default class DefectStore
     {
         this.selectedDefect = undefined;
     }
+
+    updateWorkerFollowing = (username: string) =>
+    {
+        this.defectRegistry.forEach(defect => {
+            defect.workers.forEach(worker => {
+                if(worker.username === username)
+                {
+                    worker.following ? worker.followersCount-- : worker.followersCount++;
+                    worker.following = !worker.following;
+                }
+            })
+        })
+    }
 }
