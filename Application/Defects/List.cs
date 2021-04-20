@@ -8,14 +8,18 @@ using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Application.Interfaces;
+using System.Linq;
 
 namespace Application.Defects
 {
     public class List
     {
-        public class Query : IRequest<Result<List<DefectDto>>> { }
+        public class Query : IRequest<Result<PagedList<DefectDto>>> 
+        {
+            public PagingParams Params { get; set; }
+        }
 
-        public class Handler : IRequestHandler<Query, Result<List<DefectDto>>>
+        public class Handler : IRequestHandler<Query, Result<PagedList<DefectDto>>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -27,13 +31,15 @@ namespace Application.Defects
                 _context = context;
             }
 
-            public async Task<Result<List<DefectDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PagedList<DefectDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var defects = await _context.Defects
+                var query = _context.Defects
                     .ProjectTo<DefectDto>(_mapper.ConfigurationProvider, new {currentUsername = _userAccessor.GetUsername()})
-                    .ToListAsync();
+                    .AsQueryable();
 
-                return Result<List<DefectDto>>.Success(defects);
+                return Result<PagedList<DefectDto>>.Success(
+                    await PagedList<DefectDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
+                );
             }
         }
     }

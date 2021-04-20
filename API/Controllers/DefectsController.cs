@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Application.Core;
 using Application.Defects;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -10,9 +11,9 @@ namespace API.Controllers
     public class DefectsController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetDefects()
+        public async Task<IActionResult> GetDefects([FromQuery]PagingParams param)
         {
-            return HandleResult(await Mediator.Send(new List.Query()));
+            return HandleResult(await Mediator.Send(new List.Query{Params = param}));
         }
 
         [HttpGet("{id}")] //  defects/id
