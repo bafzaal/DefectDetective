@@ -34,6 +34,7 @@ namespace Application.Defects
             public async Task<Result<PagedList<DefectDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var query = _context.Defects
+                    .OrderBy(d => d.Date)
                     .ProjectTo<DefectDto>(_mapper.ConfigurationProvider, new {currentUsername = _userAccessor.GetUsername()})
                     .AsQueryable();
 
