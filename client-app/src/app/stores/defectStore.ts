@@ -4,6 +4,7 @@ import { DefectFormValues, IDefect } from "../models/defect";
 import {format} from 'date-fns';
 import { store } from "./store";
 import { IProfile } from "../models/profile";
+import { Pagination, PagingParams } from "../models/pagination";
 
 export default class DefectStore
 {
@@ -12,10 +13,25 @@ export default class DefectStore
     editMode = false;
     loading = false;
     loadingInitial = false;
+    pagination: Pagination | null = null;
+    pagingParams = new PagingParams();
 
     constructor()
     {
         makeAutoObservable(this)
+    }
+
+    setPagingParams = (pagingParams: PagingParams) =>
+    {
+        this.pagingParams = pagingParams;
+    }
+
+    get axiosParams()
+    {
+        const params = new URLSearchParams();
+        params.append('pageNumber', this.pagingParams.pageNumber.toString());
+        params.append('pageSize', this.pagingParams.pageSize.toString());
+        return params;
     }
 
     get defectsByDate()
@@ -40,10 +56,11 @@ export default class DefectStore
         this.loadingInitial = true;
         try
         {
-            const defects = await agent.Defects.list();
-            defects.forEach(defect => {
+            const result = await agent.Defects.list(this.axiosParams);
+            result.data.forEach(defect => {
                 this.setDefect(defect);
             })
+            this.setPagination(result.pagination);
             this.setLoadingInitial(false);
         }
         catch(error)
@@ -51,6 +68,11 @@ export default class DefectStore
             console.log(error);
             this.setLoadingInitial(false);
         }
+    }
+
+    setPagination = (pagination: Pagination) =>
+    {
+        this.pagination = pagination;
     }
 
     loadDefect = async (id: string) =>

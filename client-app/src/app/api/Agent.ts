@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { DefectFormValues, IDefect } from '../models/defect';
+import { PaginatedResult } from '../models/pagination';
 import { IPhoto, IProfile } from '../models/profile';
 import { IUser, IUserFormValues } from '../models/user';
 import { store } from '../stores/store';
@@ -22,6 +23,12 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(async response => {
     await sleep(1000);
+    const pagination = response.headers['pagination'];
+    if(pagination)
+    {
+        response.data = new PaginatedResult(response.data, JSON.parse(pagination));
+        return response as AxiosResponse<PaginatedResult<any>>
+    }
     return response;
 }, (error: AxiosError) => {
     const { data, status, config } = error.response!;
@@ -68,7 +75,7 @@ const requests = {
 }
 
 const Defects = {
-    list: () => requests.get<IDefect[]>('/defects'),
+    list: (params: URLSearchParams) => axios.get<PaginatedResult<IDefect[]>>('/defects', {params}).then(responseBody),
     details: (id: string) => requests.get<IDefect>(`/defects/${id}`),
     create: (defect: DefectFormValues) => requests.post<void>('/defects', defect),
     update: (defect: DefectFormValues) => requests.put<void>(`/defects/${defect.id}`, defect),
