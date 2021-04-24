@@ -7,6 +7,7 @@ import { useStore } from '../../../app/stores/store';
 import DefectFilters from './DefectFilters';
 import DefectList from './DefectList';
 import InfiniteScroll from 'react-infinite-scroller';
+import DefectListItemPlaceholder from './DefectListItemPlaceholder';
 
 export default observer(function DefectDashboard() {
     const { defectStore } = useStore();
@@ -23,21 +24,24 @@ export default observer(function DefectDashboard() {
         if (defectRegistry.size <= 1) loadDefects();
     }, [defectRegistry.size, loadDefects])
 
-    if (defectStore.loadingInitial && !loadingNext) {
-        return <LoadingComponent content="Loading Defects..." />
-    }
-
     return (
         <Grid>
             <Grid.Column width='10'>
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={handleGetNext}
-                    hasMore={!loadingNext && !!pagination && pagination.currentPage < pagination.totalPages}
-                    initialLoad={false}
-                >
-                    <DefectList />
-                </InfiniteScroll>
+                {defectStore.loadingInitial && !loadingNext ? (
+                    <>
+                        <DefectListItemPlaceholder />
+                        <DefectListItemPlaceholder />
+                    </>
+                ) : (
+                    <InfiniteScroll
+                        pageStart={0}
+                        loadMore={handleGetNext}
+                        hasMore={!loadingNext && !!pagination && pagination.currentPage < pagination.totalPages}
+                        initialLoad={false}
+                    >
+                        <DefectList />
+                    </InfiniteScroll>
+                )}
             </Grid.Column>
             <Grid.Column width='6'>
                 <DefectFilters />
