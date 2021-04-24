@@ -11,7 +11,7 @@ namespace API.Controllers
     public class DefectsController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetDefects([FromQuery]PagingParams param)
+        public async Task<IActionResult> GetDefects([FromQuery]DefectParams param)
         {
             return HandlePagedResult(await Mediator.Send(new List.Query{Params = param}));
         }

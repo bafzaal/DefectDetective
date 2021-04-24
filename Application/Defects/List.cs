@@ -16,7 +16,7 @@ namespace Application.Defects
     {
         public class Query : IRequest<Result<PagedList<DefectDto>>> 
         {
-            public PagingParams Params { get; set; }
+            public DefectParams Params { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result<PagedList<DefectDto>>>
@@ -34,9 +34,20 @@ namespace Application.Defects
             public async Task<Result<PagedList<DefectDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var query = _context.Defects
+                    .Where(d => d.Date >= request.Params.StartDate)
                     .OrderBy(d => d.Date)
                     .ProjectTo<DefectDto>(_mapper.ConfigurationProvider, new {currentUsername = _userAccessor.GetUsername()})
                     .AsQueryable();
+
+                if(request.Params.IsWorking && !request.Params.IsOwner)
+                {
+                    query = query.Where(x => x.Workers.Any(a => a.Username == _userAccessor.GetUsername()));
+                }
+
+                if(request.Params.IsOwner && !request.Params.IsWorking)
+                {
+                    query = query.Where(x => x.OwnerUsername == _userAccessor.GetUsername());
+                }
 
                 return Result<PagedList<DefectDto>>.Success(
                     await PagedList<DefectDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
