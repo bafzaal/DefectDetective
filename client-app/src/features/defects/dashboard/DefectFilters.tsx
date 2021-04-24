@@ -12,9 +12,14 @@ export default observer(function DefectFilters()
             <Menu vertical size='large' style={{ width: '100%', marginTop: 25 }}>
                 <Header icon='filter' attached color='teal' content='Filters' />
                 <Menu.Item 
-                    content='All Defects'
+                    content='Open Defects'
                     active={predicate.has('all')}
                     onClick={() => setPredicate('all', 'true')}
+                />
+                <Menu.Item 
+                    content='Closed Defects'
+                    active={predicate.has('isClosed')}
+                    onClick={() => setPredicate('isClosed', 'true')}
                 />
                 <Menu.Item 
                     content="I'm Working on" 
@@ -30,7 +35,7 @@ export default observer(function DefectFilters()
             <Header />
             <Calendar 
                 onChange={(date) => setPredicate('startDate', date as Date)}
-                value={predicate.get('startDate') || new Date()}
+                value={predicate.get('startDate') || null}
             />
         </>
 

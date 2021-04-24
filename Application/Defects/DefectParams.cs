@@ -7,6 +7,7 @@ namespace Application.Defects
     {
         public bool IsWorking { get; set; }
         public bool IsOwner { get; set; }
-        public DateTime StartDate { get; set; } = DateTime.UtcNow;
+        public bool isClosed { get; set; }
+        public DateTime StartDate { get; set; }
     }
 }

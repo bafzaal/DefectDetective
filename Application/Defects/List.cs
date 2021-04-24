@@ -34,10 +34,24 @@ namespace Application.Defects
             public async Task<Result<PagedList<DefectDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var query = _context.Defects
-                    .Where(d => d.Date >= request.Params.StartDate)
                     .OrderBy(d => d.Date)
                     .ProjectTo<DefectDto>(_mapper.ConfigurationProvider, new {currentUsername = _userAccessor.GetUsername()})
                     .AsQueryable();
+
+                if(request.Params.StartDate != null)
+                {
+                    query = query.Where(d => d.Date >= request.Params.StartDate);
+                }
+
+                if(request.Params.isClosed)
+                {
+                    query = query.Where(x => x.isClosed == true);
+                }
+
+                if(!request.Params.isClosed)
+                {
+                    query = query.Where(x => x.isClosed == false);
+                }
 
                 if(request.Params.IsWorking && !request.Params.IsOwner)
                 {

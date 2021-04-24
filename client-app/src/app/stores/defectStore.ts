@@ -61,6 +61,10 @@ export default class DefectStore
                 resetPredicate();
                 this.predicate.set('isOwner', true);
                 break;
+            case 'isClosed':
+                resetPredicate();
+                this.predicate.set('isClosed', true);
+                break;
             case 'startDate':
                 this.predicate.delete('startDate');
                 this.predicate.set('startDate', value);
