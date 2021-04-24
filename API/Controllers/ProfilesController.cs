@@ -17,5 +17,11 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(command));
         }
+
+        [HttpGet("{username}/defects")]
+        public async Task<IActionResult> GetUserDefects(string username, string predicate)
+        {
+            return HandleResult(await Mediator.Send(new ListDefects.Query{Username = username, Predicate = predicate}));
+        }
     }
 }

@@ -1,7 +1,6 @@
 import { IUser } from "./user";
 
-export interface IProfile
-{
+export interface IProfile {
     username: string;
     displayName: string;
     image?: string;
@@ -12,20 +11,25 @@ export interface IProfile
     photos?: IPhoto[];
 }
 
-export class IProfile implements IProfile
-{
-    constructor(user: IUser)
-    {
+export class IProfile implements IProfile {
+    constructor(user: IUser) {
         this.username = user.username;
         this.displayName = user.displayName;
         this.image = user.image;
-        
+
     }
 }
 
-export interface IPhoto
-{
+export interface IPhoto {
     id: string;
     url: string;
     isMain: boolean;
+}
+
+export interface IUserDefect {
+    id: string;
+    title: string;
+    category: string;
+    date: Date;
+    isClosed: boolean;
 }

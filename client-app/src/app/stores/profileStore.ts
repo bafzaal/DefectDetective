@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/Agent";
-import { IPhoto, IProfile } from "../models/profile";
+import { IPhoto, IProfile, IUserDefect } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore {
@@ -11,6 +11,8 @@ export default class ProfileStore {
     followings: IProfile[] = [];
     loadingFollowings = false;
     activeTab = 0;
+    userDefects: IUserDefect[] = [];
+    loadingDefects = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -186,6 +188,26 @@ export default class ProfileStore {
         {
             console.log(error);
             runInAction(() => this.loadingFollowings = false);
+        }
+    }
+
+    loadUserDefects = async (username: string, predicate?: string) => 
+    {
+        this.loadingDefects = true;
+        try
+        {
+            const defects = await agent.Profiles.listDefects(username, predicate!);
+            runInAction(() => {
+                this.userDefects = defects;
+                this.loadingDefects = false;
+            })
+        }
+        catch(error)
+        {
+            console.log(error);
+            runInAction(() => {
+                this.loadingDefects = false;
+            })
         }
     }
 }

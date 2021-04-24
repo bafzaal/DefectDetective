@@ -4,6 +4,7 @@ import { Tab } from 'semantic-ui-react';
 import { IProfile } from '../../app/models/profile';
 import { useStore } from '../../app/stores/store';
 import ProfileAbout from './ProfileAbout';
+import ProfileDefects from './ProfileDefects';
 import ProfileFollowings from './ProfileFollowings';
 import ProfilePhotos from './ProfilePhotos';
 
@@ -20,7 +21,7 @@ export default observer(function ProfileContent({profile}: IProps)
     const panes = [
         {menuItem: 'About', render: () => <ProfileAbout />},
         {menuItem: 'Photos', render: () => <ProfilePhotos profile={profile} />},
-        {menuItem: 'Defects', render: () => <Tab.Pane>Defects Content</Tab.Pane>},
+        {menuItem: 'Defects', render: () => <ProfileDefects />},
         {menuItem: 'Followers', render: () => <ProfileFollowings />},
         {menuItem: 'Following', render: () => <ProfileFollowings />},
     ];

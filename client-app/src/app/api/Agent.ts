@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { history } from '../..';
 import { DefectFormValues, IDefect } from '../models/defect';
 import { PaginatedResult } from '../models/pagination';
-import { IPhoto, IProfile } from '../models/profile';
+import { IPhoto, IProfile, IUserDefect } from '../models/profile';
 import { IUser, IUserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -102,7 +102,8 @@ const Profiles = {
     deletePhoto: (id: string) => requests.del(`/photos/${id}`),
     updateProfile: (profile: Partial<IProfile>) => { requests.put('profiles', profile) },
     updateFollowing: (username: string) => requests.post(`/follow/${username}`, {}),
-    listFollowings: (username: string, predicate: string) => requests.get<IProfile[]>(`/follow/${username}?predicate=${predicate}`)
+    listFollowings: (username: string, predicate: string) => requests.get<IProfile[]>(`/follow/${username}?predicate=${predicate}`),
+    listDefects: (username: string, predicate: string) => requests.get<IUserDefect[]>(`/profiles/${username}/defects?predicate=${predicate}`)
 }
 
 const agent = {
