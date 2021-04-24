@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/Agent";
 import { DefectFormValues, IDefect } from "../models/defect";
 import {format} from 'date-fns';
@@ -15,10 +15,20 @@ export default class DefectStore
     loadingInitial = false;
     pagination: Pagination | null = null;
     pagingParams = new PagingParams();
+    predicate = new Map().set('all', true);
 
     constructor()
     {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
+
+        reaction(
+            () => this.predicate.keys(),
+            () => {
+                this.pagingParams = new PagingParams();
+                this.defectRegistry.clear();
+                this.loadDefects();
+            }
+        )
     }
 
     setPagingParams = (pagingParams: PagingParams) =>
@@ -26,11 +36,52 @@ export default class DefectStore
         this.pagingParams = pagingParams;
     }
 
+    setPredicate = (predicate: string, value: string | Date) =>
+    {
+        const resetPredicate = () =>
+        {
+            this.predicate.forEach((value, key) => {
+                if(key !== 'startDate')
+                {
+                    this.predicate.delete(key)
+                }
+            })
+        }
+        switch(predicate)
+        {
+            case 'all':
+                resetPredicate();
+                this.predicate.set('all', true);
+                break;
+            case 'isWorking':
+                resetPredicate();
+                this.predicate.set('isWorking', true);
+                break;
+            case 'isOwner':
+                resetPredicate();
+                this.predicate.set('isOwner', true);
+                break;
+            case 'startDate':
+                this.predicate.delete('startDate');
+                this.predicate.set('startDate', value);
+        }
+    }
+
     get axiosParams()
     {
         const params = new URLSearchParams();
         params.append('pageNumber', this.pagingParams.pageNumber.toString());
         params.append('pageSize', this.pagingParams.pageSize.toString());
+        this.predicate.forEach((value, key) => {
+            if(key === 'startDate')
+            {
+                params.append(key, (value as Date).toISOString())
+            }
+            else
+            {
+                params.append(key, value)
+            }
+        })
         return params;
     }
 
