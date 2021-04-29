@@ -18,7 +18,7 @@ export default class CommentStore
         if(store.defectStore.selectedDefect)
         {
             this.hubConnection = new HubConnectionBuilder()
-                .withUrl('http://localhost:5000/chat?defectId=' + defectId, {
+                .withUrl(process.env.REACT_APP_CHAT_URL + '?defectId=' + defectId, {
                     accessTokenFactory: () => store.userStore.user?.token!
                 })
                 .withAutomaticReconnect()
