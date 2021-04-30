@@ -20,19 +20,46 @@ namespace Persistence
                     {
                         DisplayName = "Bob",
                         UserName = "bob",
-                        Email = "bob@test.com"
+                        Email = "bob@test.com",
+                        Photos = new List<Photo>
+                        {
+                            new Photo
+                            {
+                                Id = "BobDefectDetective_lzouil",
+                                Url = "https://res.cloudinary.com/ilsmg0722/image/upload/v1619763895/BobDefectDetective_lzouil.jpg",
+                                IsMain = true
+                            }
+                        }
                     },
                     new AppUser
                     {
                         DisplayName = "Jane",
                         UserName = "jane",
-                        Email = "jane@test.com"
+                        Email = "jane@test.com",
+                        Photos = new List<Photo>
+                        {
+                            new Photo
+                            {
+                                Id = "JaneDefectDetective_vzfn8y",
+                                Url = "https://res.cloudinary.com/ilsmg0722/image/upload/v1619763895/JaneDefectDetective_vzfn8y.jpg",
+                                IsMain = true
+                            }
+                        }
                     },
                     new AppUser
                     {
                         DisplayName = "Tom",
                         UserName = "tom",
-                        Email = "tom@test.com"
+                        Email = "tom@test.com",
+                        Photos = new List<Photo>
+                        {
+                            new Photo
+                            {
+                                Id = "TomDefectDetective_qxshdy",
+                                Url = "https://res.cloudinary.com/ilsmg0722/image/upload/v1619763895/TomDefectDetective_qxshdy.jpg",
+                                IsMain = true
+                            }
+                        }
                     },
                 };
 

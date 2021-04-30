@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210430054336_PGInitial")]
+    [Migration("20210430063229_PGInitial")]
     partial class PGInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
