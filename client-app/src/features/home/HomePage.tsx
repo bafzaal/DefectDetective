@@ -37,7 +37,6 @@ export default observer(function HomePage() {
                 </Header>
                 {userStore.isLoggedIn ? (
                     <>
-                        <Header as='h2' inverted content='Welcome to Defect Detective' />
                         <Button as={Link} to='/defects' size='large' className="red">
                             Go to Defects!
                         </Button>
