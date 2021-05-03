@@ -1,3 +1,47 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  font-family: 'Rambla', sans-serif !important;
+}
+
+.headerText
+{
+  font-size: 5rem !important;
+  text-align: left !important;
+}
+
+#subHeaderText
+{
+  font-size: 2rem !important;
+  margin-top: -1rem;
+}
+
+#menu{
+  background: rgba(17, 0, 17, 0.35) ;
+}
+
+.linkNav
+{
+  color: white !important;
+  font-size: medium !important;
+}
+
+.linkNav:hover
+{
+  color: red !important;
+}
+
+#landing
+{
+  height: 100vh;
+  width: 100%;
+  background-image: url(../layout/img/pexels-markus-spiske-2004161.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 body
 {
   background-color: #EAEAEA !important;
