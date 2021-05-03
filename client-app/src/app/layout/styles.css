@@ -9,16 +9,27 @@
 {
   font-size: 5rem !important;
   text-align: left !important;
+  font-family: 'Rambla', sans-serif !important;
 }
 
 #subHeaderText
 {
   font-size: 2rem !important;
   margin-top: -1rem;
+  font-family: 'Rambla', sans-serif !important;
 }
 
-#menu{
+#menu
+{
   background: rgba(17, 0, 17, 0.35) ;
+}
+
+#landingText
+{
+  width:100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .linkNav
@@ -36,9 +47,11 @@
 {
   height: 100vh;
   width: 100%;
-  background-image: url(../layout/img/pexels-markus-spiske-2004161.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
+
+  background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(../layout/img/pexels-markus-spiske-2004161.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size:  cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 

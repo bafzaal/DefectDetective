@@ -23,13 +23,8 @@ export default observer(function HomePage() {
                     </div>
                 </div>
             </div>
-            <div className="ui text container">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <Header as='h1' className="headerText" inverted>
+            <div id="landingText" className="ui text-center">
+                <Header as='h1' className="headerText text-center" inverted>
                     Defect Detective
                 </Header>
                 <Header as='h3' id="subHeaderText" inverted>
