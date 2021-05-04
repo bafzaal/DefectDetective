@@ -18,7 +18,7 @@ export default observer(function NavBar() {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="text-center" style={{ flex: 1 }}>
                     <div className="item header"><Nav.Link href="/" className="linkNav">Home</Nav.Link></div>
-                    <div className="item header"><Nav.Link href="#About" className="linkNav">About</Nav.Link></div>
+                    <div className="item header"><Nav.Link href="/#About" className="linkNav">About</Nav.Link></div>
                     {userStore.isLoggedIn ? (
                         <div className="item header"><Nav.Link href="/Defects" className="linkNav">Dashboard</Nav.Link></div>
                     ) : (<></>)}

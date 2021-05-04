@@ -5,6 +5,7 @@ import { useStore } from '../../app/stores/store';
 import LoginForm from '../users/LoginForm';
 import RegisterForm from '../users/RegisterForm';
 import Navbar from "../../app/layout/NavBar";
+import AboutPage from './AboutPage';
 
 export default observer(function HomePage() {
     const { userStore, modalStore } = useStore();
@@ -14,12 +15,12 @@ export default observer(function HomePage() {
             <Navbar />
             <div id="landing">
                 <div id="landingText" className="ui text-center">
-                    <Header as='h1' className="headerText text-center" inverted>
+                    <Header as='h1' className="headerText text-center diamond" inverted>
                         Defect Detective
-                </Header>
+                    </Header>
                     <Header as='h3' id="subHeaderText" inverted>
                         Collaborate with your team and work together to resolve defects.
-                </Header>
+                    </Header>
                     {userStore.isLoggedIn ? (
                         <>
                             <Button as={Link} to='/defects' size='large' className="red">
@@ -38,6 +39,7 @@ export default observer(function HomePage() {
                     )}
                 </div>
             </div>
+            <AboutPage />
         </>
     )
 })
