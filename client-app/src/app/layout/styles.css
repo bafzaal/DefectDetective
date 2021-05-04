@@ -230,3 +230,8 @@ header:after {
 .diamond:after {
   transform: skew(-45deg)
 }
+
+.aboutIcon
+{
+  color: #cc0000;
+}
