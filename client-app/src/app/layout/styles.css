@@ -103,3 +103,51 @@ body
   font-size: 1.7em;
   font-weight: normal;
 }
+
+.navBar
+{
+  background-color: rgba(0,0,0,0.5);
+}
+
+#navImage
+{
+  padding-left: 1rem;
+}
+
+.userProfile
+{
+  margin-bottom: -1rem !important;
+  padding-right: 2.5rem;
+  padding-left: 1rem;
+}
+
+.nav-link
+{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#userNavName
+{
+  color: white;
+  display: inline;
+  padding-left: 1rem;
+  font-size: medium;
+}
+
+#userNavImage
+{
+  border-radius: 50%;
+}
+
+#navigationBar
+{
+  z-index: 1000 !important;
+  background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(../layout/img/pexels-markus-spiske-2004161.jpg);
+  width: 100%;
+}
+
+#siteTitle
+{
+  display: inline !important;
+}

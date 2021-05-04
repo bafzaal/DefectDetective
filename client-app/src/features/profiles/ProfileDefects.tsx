@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { IUserDefect } from '../../app/models/profile';
 import { format } from 'date-fns';
 import { useStore } from "../../app/stores/store";
-import { IUser } from '../../app/models/user';
 
 const panes = [
     { menuItem: 'Open Defects', pane: { key: 'open' } },

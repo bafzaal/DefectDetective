@@ -1,34 +1,56 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Button, Container, Dropdown, Image, Menu } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 import { useStore } from '../stores/store';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import RButton from 'react-bootstrap/Button';
 
 export default observer(function NavBar() {
     const { userStore: { user, logout } } = useStore();
+    const { userStore } = useStore();
     return (
-        <Menu inverted fixed='top'>
-            <Container>
-                <Menu.Item as={NavLink} to='/' exact header>
-                    <img src="/assets/logo2.png" alt="logo" style={{ marginRight: '10px' }} />
-                    Defect Detective
-                </Menu.Item>
-                <Menu.Item as={NavLink} to='/defects' name='Defects' />
-                <Menu.Item as={NavLink} to='/errors' name='Errors' />
-                <Menu.Item>
-                    <Button as={NavLink} to='/createDefect' positive content='Create Defect' />
-                </Menu.Item>
-                <Menu.Item position='right'>
-                    <Image src={user?.image || '/assets/user.png'} avatar spaced='right' />
-                    <Dropdown pointing='top left' text={user?.displayName}>
-                        <Dropdown.Menu>
-                            <Dropdown.Item as={Link} to={`/profiles/${user?.username}`}
-                                text='My Profile' icon='user' />
-                            <Dropdown.Item onClick={logout} text='Logout' icon='power' />
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Menu.Item>
-            </Container>
-        </Menu>
+        <Navbar id="navigationBar" collapseOnSelect expand="lg" variant="dark" className="navBar">
+            <Navbar.Brand id="navImage" href="/"><Image size='mini' src='/assets/logo_red.png' alt='logo' /></Navbar.Brand>
+            <div className="item header"><Nav.Link href="/" className="linkNav">Defect Detective</Nav.Link></div>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="text-center" style={{ flex: 1 }}>
+                    <div className="item header"><Nav.Link href="/" className="linkNav">Home</Nav.Link></div>
+                    <div className="item header"><Nav.Link href="#About" className="linkNav">About</Nav.Link></div>
+                    {userStore.isLoggedIn ? (
+                        <div className="item header"><Nav.Link href="/Defects" className="linkNav">Dashboard</Nav.Link></div>
+                    ) : (<></>)}
+                </Nav>
+                {userStore.isLoggedIn ? (
+                    <>
+                        <Nav className="text-center">
+                            <RButton className="text-center" size="sm" variant="outline-danger" as={NavLink} to='/createDefect'>Create Defect</RButton>
+                        </Nav>
+                        <Nav className="text-center clearfix">
+                            <NavDropdown
+                                title={
+                                    <div className="pull-left userProfile">
+                                        <img id="userNavImage"
+                                            src={user?.image || '/assets/user.png'}
+                                            alt="user pic"
+                                            width="35"
+                                            height="35"
+                                        />
+
+                                        <h4 id="userNavName" className="text-center">{user?.displayName}</h4>
+                                    </div>
+                                }
+                                id="basic-nav-dropdown">
+
+                                <NavDropdown.Item as={Link} to={`/profiles/${user?.username}`}>My Profile</NavDropdown.Item>
+                                <NavDropdown.Item onClick={logout}>Log Out</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </>
+                ) : (<></>)}
+            </Navbar.Collapse>
+        </Navbar>
     )
 })
