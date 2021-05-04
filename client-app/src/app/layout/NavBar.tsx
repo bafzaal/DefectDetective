@@ -11,7 +11,7 @@ export default observer(function NavBar() {
     const { userStore: { user, logout } } = useStore();
     const { userStore } = useStore();
     return (
-        <Navbar id="navigationBar" collapseOnSelect expand="lg" variant="dark" className="navBar">
+        <Navbar id="navigationBar" collapseOnSelect expand="lg" variant="dark" className="navBar" fixed="top">
             <Navbar.Brand id="navImage" href="/"><Image size='mini' src='/assets/logo_red.png' alt='logo' /></Navbar.Brand>
             <div className="item header"><Nav.Link href="/" className="linkNav">Defect Detective</Nav.Link></div>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
