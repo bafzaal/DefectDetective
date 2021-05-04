@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { Link, NavLink } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { Image } from 'semantic-ui-react';
 import { useStore } from '../stores/store';
 import Navbar from 'react-bootstrap/Navbar';
@@ -18,7 +19,7 @@ export default observer(function NavBar() {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="text-center" style={{ flex: 1 }}>
                     <div className="item header"><Nav.Link href="/" className="linkNav">Home</Nav.Link></div>
-                    <div className="item header"><Nav.Link href="/#About" className="linkNav">About</Nav.Link></div>
+                    <div className="item header"><HashLink to="/#About" className="linkNav nav-link">About</HashLink></div>
                     {userStore.isLoggedIn ? (
                         <div className="item header"><Nav.Link href="/Defects" className="linkNav">Dashboard</Nav.Link></div>
                     ) : (<></>)}
