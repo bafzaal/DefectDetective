@@ -151,3 +151,35 @@ body
 {
   display: inline !important;
 }
+
+.logInButton
+{
+  background-color: red !important;
+}
+
+.dimmed.dimmable > .ui.animating.dimmer, .dimmed.dimmable > .ui.visible.dimmer, .ui.active.dimmer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui.modal,
+.ui.active.modal {
+  margin: 0 auto!important;
+  top: auto !important;
+  left: auto !important;
+  transform-origin: center !important;
+  transition: all ease .5s;
+  height: auto !important;
+  width: auto !important;
+}
+
+.logInTitle
+{
+  color: red !important;
+}
+
+.ui.positive.button:hover, .ui.positive.buttons:hover .button:hover
+{
+  background-color: #cc0000 !important;
+}
