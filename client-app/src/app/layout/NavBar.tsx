@@ -18,7 +18,7 @@ export default observer(function NavBar() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="text-center" style={{ flex: 1 }}>
-                    <div className="item header"><Nav.Link href="/" className="linkNav">Home</Nav.Link></div>
+                    <div className="item header"><HashLink to="/#Home" className="linkNav nav-link">Home</HashLink></div>
                     <div className="item header"><HashLink to="/#About" className="linkNav nav-link">About</HashLink></div>
                     {userStore.isLoggedIn ? (
                         <div className="item header"><Nav.Link href="/Defects" className="linkNav">Dashboard</Nav.Link></div>

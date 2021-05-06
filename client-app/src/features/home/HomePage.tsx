@@ -13,7 +13,7 @@ export default observer(function HomePage() {
     return (
         <>
             <Navbar />
-            <div id="landing">
+            <div id="Home">
                 <div id="landingText" className="ui text-center">
                     <Header as='h1' className="headerText text-center diamond" inverted>
                         Defect Detective
