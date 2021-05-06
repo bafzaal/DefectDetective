@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Header, Menu } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
@@ -7,9 +7,10 @@ import { useStore } from '../../../app/stores/store';
 export default observer(function DefectFilters() 
 {
     const {defectStore: {predicate, setPredicate}} = useStore();
+    const [visibility, setVisibility] = useState(false);
     return (
         <>
-            <Menu vertical size='large' style={{ width: '100%', marginTop: 25 }}>
+            <Menu horizontal="true" stackable size='large' className="justify-content-center">
                 <Header icon='filter' attached color='red' content='Filters' />
                 <Menu.Item 
                     content='Open Defects'
@@ -31,12 +32,19 @@ export default observer(function DefectFilters()
                     active={predicate.has('isOwner')}
                     onClick={() => setPredicate('isOwner', 'true')}
                 />
+                <Menu.Item
+                    content="By Date" 
+                    active={visibility}
+                    onClick={() => setVisibility(!visibility)}
+                />
             </Menu>
             <Header />
-            <Calendar 
+            {visibility ? (
+                <Calendar 
                 onChange={(date) => setPredicate('startDate', date as Date)}
                 value={predicate.get('startDate') || null}
             />
+            ) : (<></>)}
         </>
 
     )

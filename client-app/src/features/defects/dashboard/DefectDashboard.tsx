@@ -24,8 +24,11 @@ export default observer(function DefectDashboard() {
     }, [defectRegistry.size, loadDefects])
 
     return (
-        <Grid>
-            <Grid.Column width='10'>
+        <Grid centered>
+            <Grid.Row id="filterRow">
+                <DefectFilters />
+            </Grid.Row>
+            <Grid.Column width='16'>
                 {defectStore.loadingInitial && !loadingNext ? (
                     <>
                         <DefectListItemPlaceholder />
@@ -42,10 +45,7 @@ export default observer(function DefectDashboard() {
                     </InfiniteScroll>
                 )}
             </Grid.Column>
-            <Grid.Column width='6'>
-                <DefectFilters />
-            </Grid.Column>
-            <Grid.Column width={10}>
+            <Grid.Column width={16}>
                 <Loader active={loadingNext} />
             </Grid.Column>
         </Grid>

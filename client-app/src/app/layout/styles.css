@@ -235,3 +235,10 @@ header:after {
 {
   color: #cc0000;
 }
+
+.ui.menu
+{
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
