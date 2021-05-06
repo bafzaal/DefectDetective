@@ -63,13 +63,13 @@ export default observer(function DefectForm() {
                 onSubmit={values => handleFormSubmit(values)}>
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                        <Header content='Title' sub color='teal' />
+                        <Header content='Title' sub color='red' />
                         <MyTextInput name='title' placeholder='Title' />
-                        <Header content='Description' sub color='teal' />
+                        <Header content='Description' sub color='red' />
                         <MyTextArea rows={3} placeholder='Description' name='description' />
-                        <Header content='Category' sub color='teal' />
+                        <Header content='Category' sub color='red' />
                         <MyComboBox options={categoryOptions} placeholder='Category' name='category' />
-                        <Header content='Date' sub color='teal' />
+                        <Header content='Date' sub color='red' />
                         <MyDateInput
                             placeholderText='Date'
                             name='date'
@@ -77,9 +77,9 @@ export default observer(function DefectForm() {
                             timeCaption='time'
                             dateFormat='MMMM, d, yyyy h:mm aa'
                         />
-                        <Header content='Priority' sub color='teal' />
+                        <Header content='Priority' sub color='red' />
                         <MyComboBox options={priorityOptions} placeholder='Priority' name='priority' />
-                        <Header content='Status' sub color='teal' />
+                        <Header content='Status' sub color='red' />
                         <MyComboBox options={statusOptions} placeholder='Status' name='status' />
                         <Button
                             disabled={isSubmitting || !dirty || !isValid}

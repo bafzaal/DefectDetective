@@ -12,7 +12,7 @@ export default observer(function DefectList() {
         <>
             {groupedDefects.map(([group, defects]) => (
                 <Fragment key={group}>
-                    <Header sub color='teal'>
+                    <Header sub color='red'>
                         {group}
                     </Header>
                     {defects.map(defect => (

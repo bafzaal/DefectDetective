@@ -18,9 +18,9 @@ export default observer(function DefectDetailedSidebar({ defect: { workers, owne
                 attached='top'
                 secondary
                 inverted
-                color='teal'
+                color='red'
             >
-                {workers.length} {workers.length === 1 ? 'Worker' : 'Workers'} going
+                {workers.length} {workers.length === 1 ? 'Worker' : 'Workers'}
             </Segment>
             <Segment attached>
                 <List relaxed divided>

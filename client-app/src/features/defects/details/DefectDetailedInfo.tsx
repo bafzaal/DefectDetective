@@ -14,7 +14,7 @@ export default observer(function DefectDetailedInfo({defect}: IProps) {
             <Segment attached='top'>
                 <Grid>
                     <Grid.Column width={1}>
-                        <Icon size='large' color='teal' name='info'/>
+                        <Icon size='large' color='red' name='info'/>
                     </Grid.Column>
                     <Grid.Column width={15}>
                         <p>{defect.description}</p>
@@ -24,7 +24,7 @@ export default observer(function DefectDetailedInfo({defect}: IProps) {
             <Segment attached>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name='calendar' size='large' color='teal'/>
+                        <Icon name='calendar' size='large' color='red'/>
                     </Grid.Column>
                     <Grid.Column width={15}>
             <span>
@@ -36,7 +36,7 @@ export default observer(function DefectDetailedInfo({defect}: IProps) {
             <Segment attached>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name='marker' size='large' color='teal'/>
+                        <Icon name='marker' size='large' color='red'/>
                     </Grid.Column>
                     <Grid.Column width={11}>
                         <span>{defect.status}, {defect.priority}</span>

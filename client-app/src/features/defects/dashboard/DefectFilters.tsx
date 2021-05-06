@@ -10,7 +10,7 @@ export default observer(function DefectFilters()
     return (
         <>
             <Menu vertical size='large' style={{ width: '100%', marginTop: 25 }}>
-                <Header icon='filter' attached color='teal' content='Filters' />
+                <Header icon='filter' attached color='red' content='Filters' />
                 <Menu.Item 
                     content='Open Defects'
                     active={predicate.has('all')}

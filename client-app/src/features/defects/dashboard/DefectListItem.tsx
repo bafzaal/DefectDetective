@@ -58,7 +58,7 @@ export default function DefectListItem({ defect }: IProps) {
                 <Button 
                     as={Link}
                     to={`/defects/${defect.id}`}
-                    color='teal'
+                    color='red'
                     floated='right'
                     content='View'
                 />
