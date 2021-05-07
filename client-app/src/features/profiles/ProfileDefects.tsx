@@ -9,7 +9,7 @@ import { useStore } from "../../app/stores/store";
 const panes = [
     { menuItem: 'Open Defects', pane: { key: 'open' } },
     { menuItem: 'Closed Defects', pane: { key: 'closed' } },
-    { menuItem: 'Creator', pane: { key: 'owner' } }
+    { menuItem: 'Created', pane: { key: 'owner' } }
 ];
 
 export default observer(function ProfileDefects() {
@@ -42,7 +42,7 @@ export default observer(function ProfileDefects() {
                         onTabChange={(e, data) => handleTabChange(e, data)}
                     />
                     <br />
-                    <Card.Group itemsPerRow={4}>
+                    <Card.Group itemsPerRow={4} stackable={true}>
                         {userDefects.map((defect: IUserDefect) => (
                             <Card
                                 as={Link}

@@ -242,3 +242,10 @@ header:after {
   border: none !important;
   box-shadow: none !important;
 }
+
+.wrapped{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 0.7rem;
+}

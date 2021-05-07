@@ -14,7 +14,7 @@ export default observer(function ProfileHeader({profile}: IProps)
     return(
         <Segment>
             <Grid>
-                <Grid.Column width={12}>
+                <Grid.Column width={10}>
                     <Item.Group>
                         <Item>
                             <Item.Image avatar size='small' src={profile.image || '/assets/user.png'} />
@@ -24,7 +24,7 @@ export default observer(function ProfileHeader({profile}: IProps)
                         </Item>
                     </Item.Group>
                 </Grid.Column>
-                <Grid.Column width={4}>
+                <Grid.Column width={6}>
                     <Statistic.Group widths={2}>
                         <Statistic label='Followers' value={profile.followersCount} />
                         <Statistic label='Following' value={profile.followingCount} />

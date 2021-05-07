@@ -47,7 +47,7 @@ export default observer(function ProfilePhotos({ profile }: IProps) {
                     {addPhotomode ? (
                         <PhotoUploadWidget uploadPhoto={handlePhotoUpload} loading={uploading} />
                     ) : (
-                        <Card.Group itemsPerRow={5}>
+                        <Card.Group stackable={true} itemsPerRow={4}>
                             {profile.photos?.map(photo => (
                                 <Card key={photo.id}>
                                     <Image src={photo.url} />
