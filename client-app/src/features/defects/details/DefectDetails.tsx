@@ -24,7 +24,7 @@ export default observer(function DefectDetails()
     if(loadingInitial || !defect) return <LoadingComponent />;
 
     return(
-        <Grid>
+        <Grid stackable={true}>
             <Grid.Column width={10}>
                 <DefectDetailedHeader defect={defect} />
                 <DefectDetailedInfo defect={defect} />

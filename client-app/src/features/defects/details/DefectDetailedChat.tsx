@@ -32,7 +32,7 @@ export default observer(function DefectDetailedChat({ defectId }: IProps) {
                 color='red'
                 style={{ border: 'none' }}
             >
-                <Header>Chat about this event</Header>
+                <Header id="chatTitle">Chat about this defect</Header>
             </Segment>
             <Segment attached clearing>
                 <Formik

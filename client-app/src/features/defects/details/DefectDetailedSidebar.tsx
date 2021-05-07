@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, List, Label, Item, Image } from 'semantic-ui-react'
+import { Segment, List, Label, Item, Image, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { IDefect } from '../../../app/models/defect'
@@ -19,8 +19,9 @@ export default observer(function DefectDetailedSidebar({ defect: { workers, owne
                 secondary
                 inverted
                 color='red'
+                id="defectWorkers"
             >
-                {workers.length} {workers.length === 1 ? 'Worker' : 'Workers'}
+                <Header id="workersTitle">{workers.length} {workers.length === 1 ? 'Worker' : 'Workers'} </Header>
             </Segment>
             <Segment attached>
                 <List relaxed divided>

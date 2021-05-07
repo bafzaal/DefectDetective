@@ -1,44 +1,38 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
-import {Segment, Grid, Icon} from 'semantic-ui-react'
-import {IDefect} from "../../../app/models/defect";
-import {format} from 'date-fns';
+import { Segment, Grid, Icon } from 'semantic-ui-react'
+import { IDefect } from "../../../app/models/defect";
+import { format } from 'date-fns';
 
 interface IProps {
     defect: IDefect
 }
 
-export default observer(function DefectDetailedInfo({defect}: IProps) {
+export default observer(function DefectDetailedInfo({ defect }: IProps) {
     return (
         <Segment.Group>
             <Segment attached='top'>
                 <Grid>
-                    <Grid.Column width={1}>
-                        <Icon size='large' color='red' name='info'/>
-                    </Grid.Column>
-                    <Grid.Column width={15}>
-                        <p>{defect.description}</p>
+                    <Grid.Column width={16}>
+                        <Icon size='large' color='red' name='info' />
+                        <span>{defect.description}</span>
                     </Grid.Column>
                 </Grid>
             </Segment>
             <Segment attached>
                 <Grid verticalAlign='middle'>
-                    <Grid.Column width={1}>
-                        <Icon name='calendar' size='large' color='red'/>
-                    </Grid.Column>
-                    <Grid.Column width={15}>
-            <span>
-              {format(defect.date!, 'dd MMM yyyy h:mm aa')}
-            </span>
+                    <Grid.Column width={16}>
+                        <Icon name='calendar' size='large' color='red' />
+                        <span>
+                            {format(defect.date!, 'dd MMM yyyy h:mm aa')}
+                        </span>
                     </Grid.Column>
                 </Grid>
             </Segment>
             <Segment attached>
                 <Grid verticalAlign='middle'>
-                    <Grid.Column width={1}>
-                        <Icon name='marker' size='large' color='red'/>
-                    </Grid.Column>
-                    <Grid.Column width={11}>
+                    <Grid.Column width={16}>
+                        <Icon name='marker' size='large' color='red' />
                         <span>{defect.status}, {defect.priority}</span>
                     </Grid.Column>
                 </Grid>

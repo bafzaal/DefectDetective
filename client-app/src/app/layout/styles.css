@@ -249,3 +249,23 @@ header:after {
   flex-wrap: wrap;
   padding-bottom: 0.7rem;
 }
+
+#formTitle
+{
+  font-family: 'Rambla', sans-serif !important;
+}
+
+#chatTitle
+{
+  font-family: 'Rambla', sans-serif !important;
+}
+
+#defectWorkers
+{
+  background: none;
+}
+
+#workersTitle
+{
+  font-family: 'Rambla', sans-serif !important;
+}
