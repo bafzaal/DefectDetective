@@ -54,7 +54,7 @@ export default observer(function DefectForm() {
 
     return (
         <>
-        <Header as='h2' content='Defect Details' size='huge' textAlign='center' color='blue' />
+        <Header as='h2' content='Defect Details' size='huge' textAlign='center' color='red' />
         <Segment clearing>
             <Formik
                 validationSchema={validationSchema}
