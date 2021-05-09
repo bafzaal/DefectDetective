@@ -23,43 +23,46 @@ function App() {
   const { commonStore, userStore } = useStore();
 
   useEffect(() => {
-    if (commonStore.token)
-    {
+    if (commonStore.token) {
       userStore.getUser().finally(() => commonStore.setAppLoaded());
     }
-    else
-    {
+    else {
       commonStore.setAppLoaded();
     }
   }, [commonStore, userStore])
 
-  if(!commonStore.appLoaded) return <LoadingComponent content='Loading App...' />
+  if (!commonStore.appLoaded) return <LoadingComponent content='Loading App...' />
 
   return (
-    <Fragment>
+    <div className="page-container">
       <ToastContainer position='bottom-right' hideProgressBar />
       <ModalContainer />
-      <Route exact path='/' component={HomePage} />
-      <Route
-        path={'/(.+)'}
-        render={() => (
-          <>
-            <NavBar />
-            <Container style={{ marginTop: '7em' }}>
-              <Switch>
-                <PrivateRoute exact path='/defects' component={DefectDashboard} />
-                <PrivateRoute path='/defects/:id' component={DefectDetails} />
-                <PrivateRoute key={location.key} path={['/createDefect', '/manage/:id']} component={DefectForm} />
-                <PrivateRoute path='/profiles/:username' component={ProfilePage} />
-                <PrivateRoute path='/errors' component={TestErrors} />
-                <Route path='/server-error' component={ServerError} />
-                <Route component={NotFound} />
-              </Switch>
-            </Container>
-          </>
-        )}
-      />
-    </Fragment>
+      <div className="content-wrap">
+        <Route exact path='/' component={HomePage} />
+        <Route
+          path={'/(.+)'}
+          render={() => (
+            <>
+              <NavBar />
+              <Container style={{ marginTop: '7em' }}>
+                <Switch>
+                  <PrivateRoute exact path='/defects' component={DefectDashboard} />
+                  <PrivateRoute path='/defects/:id' component={DefectDetails} />
+                  <PrivateRoute key={location.key} path={['/createDefect', '/manage/:id']} component={DefectForm} />
+                  <PrivateRoute path='/profiles/:username' component={ProfilePage} />
+                  <PrivateRoute path='/errors' component={TestErrors} />
+                  <Route path='/server-error' component={ServerError} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Container>
+            </>
+          )}
+        />
+      </div>
+      <footer>
+        <div className="text-center footer-text">Bilal Afzaal <span>&#169;</span> 2021</div>
+      </footer>
+    </div>
   );
 }
 

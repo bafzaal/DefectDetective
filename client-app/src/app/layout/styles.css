@@ -269,3 +269,33 @@ header:after {
 {
   font-family: 'Rambla', sans-serif !important;
 }
+
+footer
+{
+  margin-top: 2rem;
+	background-color: black;
+}
+
+.footer-text
+{
+	color: #cc0000;
+  font-size: large;
+  padding: 1.5rem;
+}
+
+.page-container
+{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap
+{
+  flex: 1;
+}
+
+#filterRow
+{
+  padding-bottom: 0% !important;
+}
