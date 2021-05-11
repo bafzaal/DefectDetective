@@ -50,7 +50,7 @@ export default observer(function ProfileDefects() {
                                 key={defect.id}
                             >
                                 <Image
-                                    src={process.env.PUBLIC_URL + `/assets/categoryImages/${defect.category}.jpg`}
+                                    src={process.env.PUBLIC_URL + `/assets/${defect.category}.jpg`}
                                     style={{ minHeight: 100, objectFit: 'cover' }}
                                 />
                                 <Card.Content>

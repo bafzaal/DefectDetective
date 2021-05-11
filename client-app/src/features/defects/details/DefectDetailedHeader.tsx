@@ -33,7 +33,7 @@ export default observer(function DefectDetailedHeader({ defect }: IProps) {
                     <Label style={{ position: 'absolute', zIndex: 1000, left: -14, top: 20 }}
                         ribbon color='red' content='Closed' />
                 }
-                <Image src={process.env.PUBLIC_URL + `/assets/categoryImages/${defect.category}.jpg`} fluid style={defectImageStyle} />
+                <Image src={process.env.PUBLIC_URL + `/assets/${defect.category}.jpg`} fluid style={defectImageStyle} />
                 <Segment style={defectImageTextStyle} basic>
                     <Item.Group>
                         <Item>
