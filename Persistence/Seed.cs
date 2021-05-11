@@ -75,7 +75,7 @@ namespace Persistence
                         Title = "Past Defect 1",
                         Date = DateTime.Now.AddMonths(-8),
                         Description = "Defect 8 months ago",
-                        Category = "Frontend",
+                        Category = "frontend",
                         Priority = "High",
                         Status = "Open",
                         Workers = new List<DefectWorker>
@@ -92,7 +92,7 @@ namespace Persistence
                         Title = "Past Defect 2",
                         Date = DateTime.Now.AddMonths(-7),
                         Description = "Defect 7 months ago",
-                        Category = "Backend",
+                        Category = "backend",
                         Priority = "Low",
                         Status = "In Progress",
                         Workers = new List<DefectWorker>
@@ -114,7 +114,7 @@ namespace Persistence
                         Title = "Future Defect 1",
                         Date = DateTime.Now.AddMonths(-6),
                         Description = "Defect 6 months ago",
-                        Category = "Testing",
+                        Category = "testing",
                         Priority = "Medium",
                         Status = "Open",
                         Workers = new List<DefectWorker>
@@ -136,7 +136,7 @@ namespace Persistence
                         Title = "Future Defect 2",
                         Date = DateTime.Now.AddMonths(-5),
                         Description = "Defect 5 months ago",
-                        Category = "Database",
+                        Category = "database",
                         Priority = "Low",
                         Status = "Closed",
                         Workers = new List<DefectWorker>
@@ -158,7 +158,7 @@ namespace Persistence
                         Title = "Future Defect 3",
                         Date = DateTime.Now.AddMonths(-4),
                         Description = "Defect 4 months ago",
-                        Category = "Design",
+                        Category = "design",
                         Priority = "High",
                         Status = "In Progress",
                         Workers = new List<DefectWorker>
@@ -180,7 +180,7 @@ namespace Persistence
                         Title = "Future Defect 4",
                         Date = DateTime.Now.AddMonths(-3),
                         Description = "Defect 3 months ago",
-                        Category = "Deployment",
+                        Category = "deployment",
                         Priority = "Medium",
                         Status = "Open",
                         Workers = new List<DefectWorker>
@@ -197,7 +197,7 @@ namespace Persistence
                         Title = "Future Defect 5",
                         Date = DateTime.Now.AddMonths(-2),
                         Description = "Defect 2 months ago",
-                        Category = "Testing",
+                        Category = "testing",
                         Priority = "High",
                         Status = "Closed",
                         Workers = new List<DefectWorker>
@@ -219,7 +219,7 @@ namespace Persistence
                         Title = "Future Defect 6",
                         Date = DateTime.Now.AddMonths(-1),
                         Description = "Defect 1 month ago",
-                        Category = "Frontend",
+                        Category = "frontend",
                         Priority = "Low",
                         Status = "In Progress",
                         Workers = new List<DefectWorker>
@@ -241,7 +241,7 @@ namespace Persistence
                         Title = "Future Defect 7",
                         Date = DateTime.Now.AddMonths(1),
                         Description = "Defect 1 month in future",
-                        Category = "Design",
+                        Category = "design",
                         Priority = "High",
                         Status = "Low",
                         Workers = new List<DefectWorker>
@@ -263,7 +263,7 @@ namespace Persistence
                         Title = "Future Defect 8",
                         Date = DateTime.Now.AddMonths(2),
                         Description = "Defect 2 months in future",
-                        Category = "Deployment",
+                        Category = "deployment",
                         Priority = "Medium",
                         Status = "In Progress",
                         Workers = new List<DefectWorker>

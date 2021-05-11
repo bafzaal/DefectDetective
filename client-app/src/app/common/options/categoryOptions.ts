@@ -1,8 +1,8 @@
 export const categoryOptions = [
-    { text: 'Frontend', value: 'Frontend' },
-    { text: 'Backend', value: 'Backend' },
-    { text: 'Testing', value: 'Testing' },
-    { text: 'Database', value: 'Database' },
-    { text: 'Design', value: 'Design' },
-    { text: 'Deployment', value: 'Deployment' }
+    { text: 'Frontend', value: 'frontend' },
+    { text: 'Backend', value: 'backend' },
+    { text: 'Testing', value: 'testing' },
+    { text: 'Database', value: 'database' },
+    { text: 'Design', value: 'design' },
+    { text: 'Deployment', value: 'deployment' }
 ]
