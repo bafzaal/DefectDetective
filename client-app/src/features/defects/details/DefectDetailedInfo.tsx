@@ -9,6 +9,12 @@ interface IProps {
 }
 
 export default observer(function DefectDetailedInfo({ defect }: IProps) {
+
+    function Capitalize(str: string) 
+    {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     return (
         <Segment.Group>
             <Segment attached='top'>
@@ -33,7 +39,7 @@ export default observer(function DefectDetailedInfo({ defect }: IProps) {
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={16}>
                         <Icon name='marker' size='large' color='red' />
-                        <span>{defect.status}, {defect.priority}</span>
+                        <span>{`Priority: ${Capitalize(defect.priority)}`}, {`Status: ${Capitalize(defect.status)}`}</span>
                     </Grid.Column>
                 </Grid>
             </Segment>

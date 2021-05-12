@@ -72,73 +72,73 @@ namespace Persistence
                 {
                     new Defect
                     {
-                        Title = "Past Defect 1",
-                        Date = DateTime.Now.AddMonths(-8),
-                        Description = "Defect 8 months ago",
-                        Category = "frontend",
-                        Priority = "High",
-                        Status = "Open",
-                        Workers = new List<DefectWorker>
-                        {
-                            new DefectWorker
-                            {
-                                AppUser = users[0],
-                                IsOwner = true
-                            }
-                        }
-                    },
-                    new Defect
-                    {
-                        Title = "Past Defect 2",
-                        Date = DateTime.Now.AddMonths(-7),
-                        Description = "Defect 7 months ago",
-                        Category = "backend",
-                        Priority = "Low",
-                        Status = "In Progress",
-                        Workers = new List<DefectWorker>
-                        {
-                            new DefectWorker
-                            {
-                                AppUser = users[0],
-                                IsOwner = true
-                            },
-                            new DefectWorker
-                            {
-                                AppUser = users[1],
-                                IsOwner = false
-                            },
-                        }
-                    },
-                    new Defect
-                    {
-                        Title = "Future Defect 1",
-                        Date = DateTime.Now.AddMonths(-6),
-                        Description = "Defect 6 months ago",
-                        Category = "testing",
-                        Priority = "Medium",
-                        Status = "Open",
-                        Workers = new List<DefectWorker>
-                        {
-                            new DefectWorker
-                            {
-                                AppUser = users[2],
-                                IsOwner = true
-                            },
-                            new DefectWorker
-                            {
-                                AppUser = users[1],
-                                IsOwner = false
-                            },
-                        }
-                    },
-                    new Defect
-                    {
-                        Title = "Future Defect 2",
+                        Title = "Inconsistent Page Layout Across Devices",
                         Date = DateTime.Now.AddMonths(-5),
-                        Description = "Defect 5 months ago",
+                        Description = "Frontend Issue - Opening the application on different sized screens results in GUI issues.",
+                        Category = "frontend",
+                        Priority = "low",
+                        Status = "closed",
+                        Workers = new List<DefectWorker>
+                        {
+                            new DefectWorker
+                            {
+                                AppUser = users[0],
+                                IsOwner = true
+                            }
+                        }
+                    },
+                    new Defect
+                    {
+                        Title = "Application Crashes on SAVE Button Click",
+                        Date = DateTime.Now.AddMonths(-4),
+                        Description = "Backend Issue - Application crashes on clicking the SAVE button while creating a new the user, hence unable to create a new user in the application.",
+                        Category = "backend",
+                        Priority = "high",
+                        Status = "closed",
+                        Workers = new List<DefectWorker>
+                        {
+                            new DefectWorker
+                            {
+                                AppUser = users[0],
+                                IsOwner = true
+                            },
+                            new DefectWorker
+                            {
+                                AppUser = users[1],
+                                IsOwner = false
+                            },
+                        }
+                    },
+                    new Defect
+                    {
+                        Title = "Test Tools CPU Usage Causes Freezing",
+                        Date = DateTime.Now.AddMonths(-3),
+                        Description = "Testing Issue - When using the test tools to assess the current state of the application, CPU usage is drastically increased.",
+                        Category = "testing",
+                        Priority = "medium",
+                        Status = "closed",
+                        Workers = new List<DefectWorker>
+                        {
+                            new DefectWorker
+                            {
+                                AppUser = users[2],
+                                IsOwner = true
+                            },
+                            new DefectWorker
+                            {
+                                AppUser = users[1],
+                                IsOwner = false
+                            },
+                        }
+                    },
+                    new Defect
+                    {
+                        Title = "Database Migrations Failed",
+                        Date = DateTime.Now.AddMonths(-2),
+                        Description = "Database Issue - Migrations on the latest build of the application were not updated.",
                         Category = "database",
-                        Priority = "Low",
-                        Status = "Closed",
+                        Priority = "low",
+                        Status = "in progress",
                         Workers = new List<DefectWorker>
                         {
                             new DefectWorker
@@ -155,12 +155,12 @@ namespace Persistence
                     },
                     new Defect
                     {
-                        Title = "Future Defect 3",
-                        Date = DateTime.Now.AddMonths(-4),
-                        Description = "Defect 4 months ago",
+                        Title = "String Irregularities Throughout Application",
+                        Date = DateTime.Now.AddMonths(-1),
+                        Description = "Design Issue - Strings are inconsistent in various pages of the application. Also, translations for certains strings are not implemented yet.",
                         Category = "design",
-                        Priority = "High",
-                        Status = "In Progress",
+                        Priority = "high",
+                        Status = "in progress",
                         Workers = new List<DefectWorker>
                         {
                             new DefectWorker
@@ -177,12 +177,12 @@ namespace Persistence
                     },
                     new Defect
                     {
-                        Title = "Future Defect 4",
-                        Date = DateTime.Now.AddMonths(-3),
-                        Description = "Defect 3 months ago",
+                        Title = "Security Headers Not Implemented",
+                        Date = DateTime.Now.AddMonths(1),
+                        Description = "Deployment Issue - The following security headers are not implemented: Content-Security-Policy, Referrer-Policy and Strict-Transport-Security.",
                         Category = "deployment",
-                        Priority = "Medium",
-                        Status = "Open",
+                        Priority = "medium",
+                        Status = "open",
                         Workers = new List<DefectWorker>
                         {
                             new DefectWorker
@@ -194,78 +194,78 @@ namespace Persistence
                     },
                     new Defect
                     {
-                        Title = "Future Defect 5",
-                        Date = DateTime.Now.AddMonths(-2),
-                        Description = "Defect 2 months ago",
-                        Category = "testing",
-                        Priority = "High",
-                        Status = "Closed",
-                        Workers = new List<DefectWorker>
-                        {
-                            new DefectWorker
-                            {
-                                AppUser = users[0],
-                                IsOwner = true
-                            },
-                            new DefectWorker
-                            {
-                                AppUser = users[1],
-                                IsOwner = false
-                            },
-                        }
-                    },
-                    new Defect
-                    {
-                        Title = "Future Defect 6",
-                        Date = DateTime.Now.AddMonths(-1),
-                        Description = "Defect 1 month ago",
-                        Category = "frontend",
-                        Priority = "Low",
-                        Status = "In Progress",
-                        Workers = new List<DefectWorker>
-                        {
-                            new DefectWorker
-                            {
-                                AppUser = users[2],
-                                IsOwner = true
-                            },
-                            new DefectWorker
-                            {
-                                AppUser = users[1],
-                                IsOwner = false
-                            },
-                        }
-                    },
-                    new Defect
-                    {
-                        Title = "Future Defect 7",
-                        Date = DateTime.Now.AddMonths(1),
-                        Description = "Defect 1 month in future",
-                        Category = "design",
-                        Priority = "High",
-                        Status = "Low",
-                        Workers = new List<DefectWorker>
-                        {
-                            new DefectWorker
-                            {
-                                AppUser = users[0],
-                                IsOwner = true
-                            },
-                            new DefectWorker
-                            {
-                                AppUser = users[2],
-                                IsOwner = false
-                            },
-                        }
-                    },
-                    new Defect
-                    {
-                        Title = "Future Defect 8",
+                        Title = "Nightly Automated Test Failing",
                         Date = DateTime.Now.AddMonths(2),
-                        Description = "Defect 2 months in future",
+                        Description = "Testing Issue - Automated tests need to be updated to align with new development.",
+                        Category = "testing",
+                        Priority = "high",
+                        Status = "open",
+                        Workers = new List<DefectWorker>
+                        {
+                            new DefectWorker
+                            {
+                                AppUser = users[0],
+                                IsOwner = true
+                            },
+                            new DefectWorker
+                            {
+                                AppUser = users[1],
+                                IsOwner = false
+                            },
+                        }
+                    },
+                    new Defect
+                    {
+                        Title = "No Confirmation Message Shown on Contact Form",
+                        Date = DateTime.Now.AddMonths(2),
+                        Description = "Frontend Issue - After submitting a contact request, the confirmation modal is not triggered.",
+                        Category = "frontend",
+                        Priority = "low",
+                        Status = "open",
+                        Workers = new List<DefectWorker>
+                        {
+                            new DefectWorker
+                            {
+                                AppUser = users[2],
+                                IsOwner = true
+                            },
+                            new DefectWorker
+                            {
+                                AppUser = users[1],
+                                IsOwner = false
+                            },
+                        }
+                    },
+                    new Defect
+                    {
+                        Title = "Application Compatibility Need Updates",
+                        Date = DateTime.Now.AddMonths(3),
+                        Description = "Design Issue - The application design needs to be updated to efficiently run on the newest hardware and operating systems",
+                        Category = "design",
+                        Priority = "high",
+                        Status = "open",
+                        Workers = new List<DefectWorker>
+                        {
+                            new DefectWorker
+                            {
+                                AppUser = users[0],
+                                IsOwner = true
+                            },
+                            new DefectWorker
+                            {
+                                AppUser = users[2],
+                                IsOwner = false
+                            },
+                        }
+                    },
+                    new Defect
+                    {
+                        Title = "Misconfigured Network Load Balancers",
+                        Date = DateTime.Now.AddMonths(4),
+                        Description = "Deployment Issue - As more and more users load the application, traffic distribution across servers is not optimized and in turn slows down the application.",
                         Category = "deployment",
-                        Priority = "Medium",
-                        Status = "In Progress",
+                        Priority = "medium",
+                        Status = "open",
                         Workers = new List<DefectWorker>
                         {
                             new DefectWorker
