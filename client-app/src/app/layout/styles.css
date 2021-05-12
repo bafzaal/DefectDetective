@@ -299,3 +299,9 @@ footer
 {
   padding-bottom: 0% !important;
 }
+
+.exclamation
+{
+  margin-right: -0.1rem !important;
+  margin-left: 0.24rem !important;
+}
