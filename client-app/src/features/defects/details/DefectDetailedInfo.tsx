@@ -39,7 +39,7 @@ export default observer(function DefectDetailedInfo({ defect }: IProps) {
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={16}>
                         <Icon name='marker' size='large' color='red' />
-                        <span>{`Priority: ${Capitalize(defect.priority)}`}, {`Status: ${Capitalize(defect.status)}`}</span>
+                        <span>{`Priority: ${Capitalize(defect.priority)}`}</span>
                     </Grid.Column>
                 </Grid>
             </Segment>

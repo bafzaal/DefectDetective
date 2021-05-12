@@ -52,7 +52,6 @@ export default function DefectListItem({ defect }: IProps) {
                 <span>
                     <Icon name='clock' /> {format(defect.date!, 'dd MMM yyyy h:mm aa')}
                     <Icon name='exclamation' /> {`Priority: ${Capitalize(defect.priority)}`}
-                    <Icon name='info' /> {`Status: ${Capitalize(defect.status)}`}
                 </span>
             </Segment>
             <Segment secondary>

@@ -15,7 +15,6 @@ import { categoryOptions } from '../../../app/common/options/categoryOptions';
 import MyDateInput from '../../../app/common/form/MyDateInput';
 import { DefectFormValues } from '../../../app/models/defect';
 import { priorityOptions } from '../../../app/common/options/priorityOptions';
-import { statusOptions } from '../../../app/common/options/statusOptions';
 
 export default observer(function DefectForm() {
     const history = useHistory();
@@ -30,7 +29,6 @@ export default observer(function DefectForm() {
         category: Yup.string().required(),
         date: Yup.string().required('Date is required').nullable(),
         priority: Yup.string().required(),
-        status: Yup.string().required(),
     })
 
     useEffect(() => {
@@ -79,8 +77,6 @@ export default observer(function DefectForm() {
                         />
                         <Header content='Priority' sub color='red' />
                         <MyComboBox options={priorityOptions} placeholder='Priority' name='priority' />
-                        <Header content='Status' sub color='red' />
-                        <MyComboBox options={statusOptions} placeholder='Status' name='status' />
                         <Button
                             disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting}
