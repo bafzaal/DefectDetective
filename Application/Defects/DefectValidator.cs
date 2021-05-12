@@ -12,7 +12,6 @@ namespace Application.Defects
             RuleFor(x => x.Date).NotEmpty();
             RuleFor(x => x.Category).NotEmpty();
             RuleFor(x => x.Priority).NotEmpty();
-            RuleFor(x => x.Status).NotEmpty();
         }
     }
 }
