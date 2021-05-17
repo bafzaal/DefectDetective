@@ -59,6 +59,8 @@ App  Login         |  Defect Dashboard | Defect Details      |  Profile Page
 
 ### Clean Architecture Pattern
 
+<img src="READMEAssets/CleanArchitecture.png" alt="CleanArchitecture.png">
+
 ### Mediator Pattern
 
 ### React Folder Structure
