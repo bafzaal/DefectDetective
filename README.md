@@ -20,8 +20,6 @@
   * [Clean Architecture Pattern](#clean-architecture-pattern)
   * [Mediator Pattern](#mediator-pattern)
   * [React Folder Structure](#react-folder-structure)
-* [Database](#database)
-  * [Postgres](#postgres)
   * [ER Diagram](#er-diagram)
 * [Deployment](#deployment)
   * [Heroku](#heroku)
@@ -64,3 +62,12 @@ App  Login         |  Defect Dashboard | Defect Details      |  Profile Page
 ### Mediator Pattern
 
 ### React Folder Structure
+
+### ER Diagram
+
+<!-- DEPLOYMENT -->
+## Deployment
+
+### Heroku
+
+### Security Headers
