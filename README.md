@@ -17,9 +17,9 @@
   * [App Screenshots](#app-screenshots)
   * [Built With](#built-with)
 * [Software Architecture](#software-architecture)
-  * [Clean Architecture Pattern](#clean-architecture)
-  * [CQRS + Mediator Pattern](#patterns)
-  * [React Folder Structure](#react-structure)
+  * [Clean Architecture Pattern](#clean-architecture-pattern)
+  * [Mediator Pattern](#mediator-pattern)
+  * [React Folder Structure](#react-folder-structure)
 * [Database](#database)
   * [Postgres](#postgres)
   * [ER Diagram](#er-diagram)
@@ -55,3 +55,12 @@ App  Login         |  Defect Dashboard | Defect Details      |  Profile Page
   - [Semantic UI React](https://react.semantic-ui.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Cloudinary](https://cloudinary.com/documentation)
+
+<!-- SOFTWARE ARCHITECTURE -->
+## Software Architecture
+
+### Clean Architecture Pattern
+
+### Mediator Pattern
+
+### React Folder Structure
