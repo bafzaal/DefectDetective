@@ -39,6 +39,19 @@
 
 App  Login         |  Defect Dashboard | Defect Details      |  Profile Page
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-<img src="" title="App Login " width="100%"> |<img src="" title="Defect Dashboard" width="100%">|<img src="" title="Defect Details" width="100%"> |<img src="" title="Profile Page" width="100%">
+<img src="READMEAssets/Home.png" title="App Login " width="100%"> |<img src="READMEAssets/Dashboard.png" title="Defect Dashboard" width="100%">|<img src="READMEAssets/Details.png" title="Defect Details" width="100%"> |<img src="READMEAssets/Profile.png" title="Profile Page" width="100%">
 
 ### Built With
+- [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0)
+  - [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
+  - [AutoMapper](https://automapper.org/)
+  - [MediatR](https://github.com/jbogard/MediatR)
+  - [SignalR](https://dotnet.microsoft.com/apps/aspnet/signalr)
+- [React](https://reactjs.org/)
+  - With [TypeScript](https://create-react-app.dev/docs/adding-typescript/)
+  - [MobX](https://mobx.js.org/README.html)
+  - [Axios](https://www.npmjs.com/package/axios)
+  - [React Bootstrap](https://react-bootstrap.github.io/)
+  - [Semantic UI React](https://react.semantic-ui.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Cloudinary](https://cloudinary.com/documentation)
