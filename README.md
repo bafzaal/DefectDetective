@@ -4,16 +4,18 @@
 
 <h1 align="center"> Defect Detective</h1>
 <h3 align="center"> Bilal Afzaal </h3>
-<h5 align="center"><a href="https://defect-detective.herokuapp.com/">Visit Site</a></h5>
 <h6 align="center"><a href="https://defect-detective.herokuapp.com/">https://defect-detective.herokuapp.com/</a></h6>
+<h6 align="center"> Demo Login Information: </h6>
+<h6 align="center"> Email: bob@test.com </h6>
+<h6 align="center"> Password: Pa$$w0rd </h6>
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
 * [About the Project](#about-the-project)
   * [Overview](#overview)
-  * [Built With](#built-with)
   * [App Screenshots](#app-screenshots)
+  * [Built With](#built-with)
 * [Software Architecture](#software-architecture)
   * [Clean Architecture Pattern](#clean-architecture)
   * [CQRS + Mediator Pattern](#patterns)
