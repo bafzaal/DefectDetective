@@ -18,7 +18,9 @@
   * [Built With](#built-with)
 * [Software Architecture](#software-architecture)
   * [Clean Architecture Pattern](#clean-architecture-pattern)
+  * [CQRS](#cqrs)
   * [Mediator Pattern](#mediator-pattern)
+  * [Flow of Control](#flow-of-control)
   * [React Folder Structure](#react-folder-structure)
   * [ER Diagram](#er-diagram)
 * [Deployment](#deployment)
@@ -81,7 +83,16 @@ It is essential for this architecture to follow to The Dependency Principle. Thi
 - Maintenance of the code is effective and it is a better solution for an agile environment.
 - It will be easier to understand the code whenever a new developer starts working on this code.
 
+### CQRS
+
+The Command and Query Responsibility Segregation (CQRS) pattern was used to seperate read and write operations into different models. Commands are intended to update data and queries are used to read data. In turn this maximizes performance, scalability and security. The flexibility created by implementing CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level. Furthermore, this pattern is a great enabler to use hand in hand with other patterns such as Mediator Pattern.
+
 ### Mediator Pattern
+
+The Mediator pattern suggests that you should avoid all direct communication between the components which you want to make independent of each other. Instead, these components must collaborate indirectly, by calling a special mediator object that redirects the calls to appropriate components. As a result, the components depend only on a single mediator class instead of being coupled to dozens of their colleagues.
+
+### Flow of Control
+
 
 ### React Folder Structure
 
