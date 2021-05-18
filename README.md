@@ -114,6 +114,8 @@ The file structure used for the react app is [grouping by feature](https://react
 
 ### ER Diagram
 
+<img src="READMEAssets/ERDiagram.png" alt="FlowControl.png">
+
 ### Security Headers
 
 <img src="READMEAssets/SecurityHeaders.png" alt="FlowControl.png">
