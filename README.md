@@ -91,7 +91,7 @@ The Command and Query Responsibility Segregation (CQRS) pattern is used to seper
 
 The Mediator pattern suggests that you should avoid all direct communication between the components which you want to make independent of each other. Instead, these components must collaborate indirectly, by calling a special mediator object that redirects the calls to appropriate components. As a result, the components depend only on a single mediator class instead of being coupled to dozens of their colleagues. This pattern continues to promote the loosely coupled nature of different layers implemented throughout the project. Furthermore, the readability and maintainability of the code is significantly improved after implementation.
 
-### Flow of Control
+## Flow of Control
 
 <img src="READMEAssets/FlowControl.png" alt="FlowControl.png">
 
@@ -99,6 +99,20 @@ The Mediator pattern suggests that you should avoid all direct communication bet
 - As you can see, all aforementioned patterns are working closely to ensure the system exhibits modularity, clairty and efficiency.
 
 ### React Folder Structure
+
+The file structure used for the react app is [grouping by feature](https://reactjs.org/docs/faq-structure.html)
+
+    client-app
+    ├── public                       # All public assets such as images as well as the main index.html file
+    ├── src                          # All ts and tsx components grouped by feature for the app 
+    ├── .env.development             # Environment variables are defined for React App when in dev mode
+    ├── .env.production              # Environment variables are defined for React App when in production mode
+    ├── .gitignore                   # Default gitignore
+    ├── README.md                    # Default README that comes with React App
+    ├── package-lock.json
+    ├── package.json
+    └── tsconfig.json
+
 
 ### ER Diagram
 
