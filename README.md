@@ -85,14 +85,18 @@ It is essential for this architecture to follow to The Dependency Principle. Thi
 
 ### CQRS
 
-The Command and Query Responsibility Segregation (CQRS) pattern was used to seperate read and write operations into different models. Commands are intended to update data and queries are used to read data. In turn this maximizes performance, scalability and security. The flexibility created by implementing CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level. Furthermore, this pattern is a great enabler to use hand in hand with other patterns such as Mediator Pattern.
+The Command and Query Responsibility Segregation (CQRS) pattern is used to seperate read and write operations into different models. Commands are intended to update data and queries are used to read data. In turn this maximizes performance, scalability and security. The flexibility created by implementing CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level. Furthermore, this pattern is a great enabler to use hand in hand with other patterns such as Mediator Pattern.
 
 ### Mediator Pattern
 
-The Mediator pattern suggests that you should avoid all direct communication between the components which you want to make independent of each other. Instead, these components must collaborate indirectly, by calling a special mediator object that redirects the calls to appropriate components. As a result, the components depend only on a single mediator class instead of being coupled to dozens of their colleagues.
+The Mediator pattern suggests that you should avoid all direct communication between the components which you want to make independent of each other. Instead, these components must collaborate indirectly, by calling a special mediator object that redirects the calls to appropriate components. As a result, the components depend only on a single mediator class instead of being coupled to dozens of their colleagues. This pattern continues to promote the loosely coupled nature of different layers implemented throughout the project. Furthermore, the readability and maintainability of the code is significantly improved after implementation.
 
 ### Flow of Control
 
+<img src="READMEAssets/FlowControl.png" alt="FlowControl.png">
+
+- Above is a diagram depicting the flow of control for one write/read transactional operation. The API presenter would eventually receive a response from the Mediator which is then redirected to the UI. 
+- As you can see, all aforementioned patterns are working closely to ensure the system exhibits modularity, clairty and efficiency.
 
 ### React Folder Structure
 
