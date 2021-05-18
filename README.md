@@ -23,8 +23,6 @@
   * [Flow of Control](#flow-of-control)
   * [React Folder Structure](#react-folder-structure)
   * [ER Diagram](#er-diagram)
-* [Deployment](#deployment)
-  * [Heroku](#heroku)
   * [Security Headers](#security-headers)
 
 <!-- ABOUT THE PROJECT -->
@@ -116,9 +114,6 @@ The file structure used for the react app is [grouping by feature](https://react
 
 ### ER Diagram
 
-<!-- DEPLOYMENT -->
-## Deployment
-
-### Heroku
-
 ### Security Headers
+
+<img src="READMEAssets/SecurityHeaders.png" alt="FlowControl.png">
